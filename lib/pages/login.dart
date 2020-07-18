@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rbocw/pages/OtpView.dart';
+import 'package:rbocw/providers/app_data.dart';
 import 'package:rbocw/scoped-model/main.dart';
+import 'package:rbocw/widgets/phone_number.dart';
 import 'package:rbocw/widgets/rounded_input_field.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   // MainModel _model = MainModel();
   // LoginScreen(this._model);
 
@@ -15,10 +17,14 @@ class LoginScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: key,
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       body: body(context),
     );
   }
@@ -36,6 +42,7 @@ class LoginScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(left: 40.0, right: 40.0),
               child: ListView(
+                shrinkWrap: true,
                 children: <Widget>[
                   SizedBox(height: 80),
                   SvgPicture.asset(
@@ -48,19 +55,41 @@ class LoginScreen extends StatelessWidget {
                     height: size.height * 0.15,
                   ),
                   SizedBox(height: size.height * 0.05),
-                  RoundedInputField(
-                      hintText: "Please Enter Phone no.",
-                      icon: Icons.phone,
-                      textField: true,
-                      textAction: true,
-                      onChanged: (value) {},
-                      onSubmitted: (value) {
-                        print(">>>>>>>>>>>>>>>." + value);
-                        _validateMobileNumber(value, context);
-                      }),
+                  PhoneNumberField(
+                    hintText: "Please Enter Phone no.",
+                    onSubmitted: (value) {
+                      print(">>>>>>>>>>>>>>>." + value);
+                      _validateMobileNumber(value, context);
+                    },
+                    textAction: true,
+                  )
+                  // RoundedInputField(
+                  //     hintText: "Please Enter Phone no.",
+                  //     icon: Icons.phone,
+                  //     textField: true,
+                  //     textAction: true,
+                  //     onChanged: (value) {},
+                  //     onSubmitted: (value) {
+                  //       print(">>>>>>>>>>>>>>>." + value);
+                  //       _validateMobileNumber(value, context);
+                  //     }),
                 ],
               ),
             ),
+            widget.model.isLoginLoading
+                ? Stack(
+                    children: [
+                      new Opacity(
+                        opacity: 0.1,
+                        child: const ModalBarrier(
+                            dismissible: false, color: Colors.grey),
+                      ),
+                      new Center(
+                        child: new CircularProgressIndicator(),
+                      ),
+                    ],
+                  )
+                : Container()
           ],
         ));
     // return Stack(
@@ -131,7 +160,7 @@ class LoginScreen extends StatelessWidget {
     //make api call
     if (mobileNo.length == 10) {
       Map<String, dynamic> response =
-          await model.getLoginResponse({"mobile": mobileNo});
+          await widget.model.getLoginResponse({"mobile": mobileNo});
 
       print(response);
       Navigator.push(context,

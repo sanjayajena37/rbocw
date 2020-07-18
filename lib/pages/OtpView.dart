@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:rbocw/pages/register.dart';
 import 'package:rbocw/providers/app_data.dart';
 
+import 'confirmPage.dart';
+
 class OtpView extends StatefulWidget {
   // final String email;
   final String newEmail;
@@ -251,7 +253,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      RegisterPage()));
+                                      ConfirmPage()));
                         }),
                   ),
                   _otpKeyboardInputButton(

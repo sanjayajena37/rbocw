@@ -13,6 +13,8 @@ class AppData {
   static int textColor = 00000000;
   static Color kPrimaryColor = Color(0xFF97f27e);
   static Color kPrimaryLightColor = Color(0xFFe9f7ea);
+  static String currentSelectedValue = "+91";
+  static List<String> phoneFormat = ["+91", "+80", "+78"];
 
   static int getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
