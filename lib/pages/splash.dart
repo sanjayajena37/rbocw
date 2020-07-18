@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     GestureDetector(
                       child: ClipOval(
                         child: Image.asset(
-                          "assets/images/odisha_logo.png",
+                          "assets/icons/logo1.png",
                           fit: BoxFit.cover,
                           width: 140.0,
                           height: 140.0,
@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                       child: Image.asset(
-                        "assets/images/owb_logo.png",
+                        "assets/images/bow-logo.png",
                         fit: BoxFit.fitWidth,
                         width: double.infinity,
                         height: 120.0,
@@ -88,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Image.asset(
-                  "assets/images/bg_down.jpg",
+                  "assets/images/footer.jpg",
                   fit: BoxFit.fitWidth,
                 ),
               ),
