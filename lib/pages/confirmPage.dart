@@ -7,6 +7,7 @@ import 'package:rbocw/widgets/rounded_input_field.dart';
 
 class ConfirmPage extends StatefulWidget {
   final MainModel model;
+
   const ConfirmPage({
     Key key,
     this.model,
@@ -20,6 +21,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
   bool _isExistinguser = false;
   DateTime selectedDate = DateTime.now();
   TextEditingController _date = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,17 +48,17 @@ class _ConfirmPageState extends State<ConfirmPage> {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height,
+      color: Colors.white,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: <Color>[Colors.green.shade200, Colors.green]),
+          image: DecorationImage(
+              image: AssetImage("assets/images/bg.jpg"), fit: BoxFit.cover),
+          color: Colors.white
       ),
       child: ListView(
         shrinkWrap: true,
         children: <Widget>[
           SizedBox(
-            height: 30.0,
+            height: 90.0,
           ),
           SvgPicture.asset(
             "assets/icons/govt_logo.svg",
@@ -83,6 +85,14 @@ class _ConfirmPageState extends State<ConfirmPage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40.0)),
                 color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 1.0,
+                    spreadRadius: 0.0,
+                    //offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                  )
+                ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -144,7 +154,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                           child: InkWell(
                             child: Icon(
                               Icons.keyboard_backspace,
-                              color: Colors.yellow,
+                              color: AppData.kPrimaryColor,
                             ),
                             onTap: () => {
                               setState(() {
@@ -166,7 +176,8 @@ class _ConfirmPageState extends State<ConfirmPage> {
             children: [
               CircleAvatar(
                 radius: 40.0,
-                backgroundColor: Colors.amber.shade600,
+                //backgroundColor: Colors.amber.shade600,
+                backgroundColor: AppData.kPrimaryColor,
                 child: Icon(
                   Icons.person,
                   color: Colors.white,
@@ -183,7 +194,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.0)),
                 child: Text("OK", style: TextStyle(color: Colors.white70)),
-                color: Colors.amber,
+                color: AppData.kPrimaryColor,
               ),
             ),
           )
@@ -195,16 +206,16 @@ class _ConfirmPageState extends State<ConfirmPage> {
   Widget confirmationContaint() {
     return Center(
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 45, vertical: 15),
           child: Column(
             children: <Widget>[
               Text(
-                "Are you existing use?",
+                "Are you existing user?",
                 textScaleFactor: 0.6,
                 style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: Colors.black),
               ),
               SizedBox(
                 height: 50,
@@ -224,7 +235,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                       // margin: new EdgeInsets.only(left: 10.0, right: 10),
                       child: new Material(
                         elevation: 2.0,
-                        color: Colors.blueAccent,
+                        color: Color(0xFF53B64B),
                         borderRadius:
                             const BorderRadius.all(const Radius.circular(25.0)),
                         child: new Container(
@@ -248,7 +259,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                       // margin: new EdgeInsets.only(left: 10.0, right: 10),
                       child: new Material(
                         elevation: 2.0,
-                        color: Colors.red,
+                        color: Color(0xFFED3833),
                         borderRadius:
                             const BorderRadius.all(const Radius.circular(25.0)),
                         child: new Container(

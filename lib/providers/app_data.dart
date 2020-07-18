@@ -11,10 +11,12 @@ class AppData {
 
   static int bgColor = 00000000;
   static int textColor = 00000000;
-  static Color kPrimaryColor = Color(0xFF97f27e);
+  //static Color kPrimaryColor = Color(0xFF97f27e);
+  static Color kPrimaryColor = Color(0xFF255E55);
   static Color kPrimaryLightColor = Color(0xFFe9f7ea);
   static String currentSelectedValue = "+91";
-  static List<String> phoneFormat = ["+91", "+80", "+78"];
+  //static List<String> phoneFormat = ["+91", "+80", "+78"];
+  static List<String> phoneFormat = ["+91"];
 
   static int getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
@@ -163,57 +165,57 @@ class AppData {
       Function closePopUp,
       Function function) {
     return showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            // return object of type Dialog
-            return AlertDialog(
-              title: Text(
-                title,
-                textAlign: TextAlign.center,
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.grey[700],
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600),
+          ),
+          content: Text(
+            message,
+            style: TextStyle(
+                color: Colors.grey[700],
+                fontSize: 16.0,
+                height: 1.5,
+                fontWeight: FontWeight.w400),
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            FlatButton(
+              child: Text(
+                btnName.toUpperCase(),
                 style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w600),
-              ),
-              content: Text(
-                message,
-                style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16.0,
-                    height: 1.5,
+                    color: Colors.green,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.w400),
               ),
-              actions: <Widget>[
-                // usually buttons at the bottom of the dialog
-                FlatButton(
-                  child: Text(
-                    btnName.toUpperCase(),
-                    style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  onPressed: () {
-                    function();
-                  },
-                ),
-                FlatButton(
-                  child: Text(
-                    btnNegName.toUpperCase(),
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  onPressed: () {
-                    closePopUp();
-                  },
-                ),
-              ],
-            );
-          },
-        ) ??
+              onPressed: () {
+                function();
+              },
+            ),
+            FlatButton(
+              child: Text(
+                btnNegName.toUpperCase(),
+                style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w400),
+              ),
+              onPressed: () {
+                closePopUp();
+              },
+            ),
+          ],
+        );
+      },
+    ) ??
         false;
   }
 }

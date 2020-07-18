@@ -78,17 +78,17 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             widget.model.isLoginLoading
                 ? Stack(
-                    children: [
-                      new Opacity(
-                        opacity: 0.1,
-                        child: const ModalBarrier(
-                            dismissible: false, color: Colors.grey),
-                      ),
-                      new Center(
-                        child: new CircularProgressIndicator(),
-                      ),
-                    ],
-                  )
+              children: [
+                new Opacity(
+                  opacity: 0.1,
+                  child: const ModalBarrier(
+                      dismissible: false, color: Colors.grey),
+                ),
+                new Center(
+                  child: new CircularProgressIndicator(),
+                ),
+              ],
+            )
                 : Container()
           ],
         ));
@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
     //make api call
     if (mobileNo.length == 10) {
       Map<String, dynamic> response =
-          await widget.model.getLoginResponse({"mobile": mobileNo});
+      await widget.model.getLoginResponse({"mobile": mobileNo});
 
       print(response);
       Navigator.push(context,
