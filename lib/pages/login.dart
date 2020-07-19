@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:rbocw/pages/OtpView.dart';
 import 'package:rbocw/providers/app_data.dart';
 import 'package:rbocw/scoped-model/main.dart';
@@ -76,19 +77,62 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
+            Positioned(
+              bottom: 0,
+              child: Container(
+                width: size.width,
+                height: 50,
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                decoration: BoxDecoration(
+                  // color: Colors.grey.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      toBeginningOfSentenceCase("language"),
+                      style: TextStyle(
+                          color: AppData.kPrimaryColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        // hint: Text("Select Device"),
+                        value: AppData.slectedLanguage,
+                        isDense: true,
+                        onChanged: (newValue) {
+                          setState(() {
+                            AppData.slectedLanguage = newValue;
+                          });
+                          print(AppData.slectedLanguage);
+                        },
+                        items: AppData.language.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             widget.model.isLoginLoading
                 ? Stack(
-              children: [
-                new Opacity(
-                  opacity: 0.1,
-                  child: const ModalBarrier(
-                      dismissible: false, color: Colors.grey),
-                ),
-                new Center(
-                  child: new CircularProgressIndicator(),
-                ),
-              ],
-            )
+                    children: [
+                      new Opacity(
+                        opacity: 0.1,
+                        child: const ModalBarrier(
+                            dismissible: false, color: Colors.grey),
+                      ),
+                      new Center(
+                        child: new CircularProgressIndicator(),
+                      ),
+                    ],
+                  )
                 : Container()
           ],
         ));
@@ -160,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
     //make api call
     if (mobileNo.length == 10) {
       Map<String, dynamic> response =
-      await widget.model.getLoginResponse({"mobile": mobileNo});
+          await widget.model.getLoginResponse({"mobile": mobileNo});
 
       print(response);
       Navigator.push(context,

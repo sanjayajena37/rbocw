@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rbocw/pages/newUserRegister.dart';
+import 'package:rbocw/pages/register.dart';
 import 'package:rbocw/pages/splash.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -27,9 +29,9 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.green,
             ),
-            home: SplashScreen(model: _model),
+            home: NewUserRegister(model: _model),
             // home: RegisterPage(model: _model),
           );
         }));

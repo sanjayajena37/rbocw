@@ -48,12 +48,10 @@ class _ConfirmPageState extends State<ConfirmPage> {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height,
-      color: Colors.white,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/bg.jpg"), fit: BoxFit.cover),
-          color: Colors.white
-      ),
+          color: Colors.white),
       child: ListView(
         shrinkWrap: true,
         children: <Widget>[
@@ -84,10 +82,10 @@ class _ConfirmPageState extends State<ConfirmPage> {
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                color: Colors.white,
+                color: Color(0xFFfaf7f7),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey,
+                    color: Colors.white,
                     blurRadius: 1.0,
                     spreadRadius: 0.0,
                     //offset: Offset(2.0, 2.0), // shadow direction: bottom right

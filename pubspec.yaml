@@ -25,6 +25,8 @@ dependencies:
   package_info: ^0.4.0+3
   flutter_svg: ^0.17.4
   intl: ^0.15.0
+  image_picker: ^0.5.4+3
+  flutter_native_splash: ^0.1.4
   
   flutter:
     sdk: flutter
@@ -42,6 +44,11 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
+flutter_native_splash:
+  image: assets/images/splash.png
+  color: 42a5f5
+  fill: true
+
 flutter:
 
   # The following line ensures that the Material Icons font is
