@@ -228,7 +228,7 @@ class PersonalFormState extends State<PersonalForm> {
       ),
       validator: (value) {
         if (value.isEmpty) {
-          setState(() {});
+          // setState(() {});
           firstNameError = true;
           return null;
           // return 'Please enter first name';

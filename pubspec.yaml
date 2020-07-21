@@ -27,6 +27,8 @@ dependencies:
   intl: ^0.15.0
   image_picker: ^0.5.4+3
   flutter_native_splash: ^0.1.4
+  bubbled_navigation_bar: ^0.0.3 
+  font_awesome_flutter: ^8.8.1
   
   flutter:
     sdk: flutter
