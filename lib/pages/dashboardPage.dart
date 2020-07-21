@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rbocw/providers/app_data.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({Key key}) : super(key: key);
@@ -41,9 +42,9 @@ class _DashboardPageState extends State<DashboardPage> {
               Stack(
                 children: <Widget>[
                   Container(
-                    height: 250.0,
+                    height: 240.0,
                     width: double.infinity,
-                    color: Color(getColorHexFromStr('#FDD148')),
+                    color: AppData.kPrimaryColor,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,15 +60,15 @@ class _DashboardPageState extends State<DashboardPage> {
                             height: 75.0,
                             width: 75.0,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(37.5),
-                              border: Border.all(
-                                  color: Colors.white,
-                                  style: BorderStyle.solid,
-                                  width: 3.0),
-                              // image: DecorationImage(
-                              //     image: AssetImage('assets/chris.jpg')
-                              //     )
-                            ),
+                                borderRadius: BorderRadius.circular(37.5),
+                                border: Border.all(
+                                    color: Colors.white,
+                                    style: BorderStyle.solid,
+                                    width: 3.0),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg"))),
                           ),
                           SizedBox(width: 10.0),
                           Column(
@@ -190,29 +191,29 @@ class _DashboardPageState extends State<DashboardPage> {
                         ],
                       ),
                       SizedBox(height: 25.0),
-                      SizedBox(height: 25.0),
+                      // SizedBox(height: 25.0),
                       Column(
                         children: <Widget>[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              cardDetails(
-                                  'Pending payment', 'assets/card.png', '5'),
-                              cardDetails(
-                                  'To be shipped', 'assets/box.png', '2'),
+                              cardDetails('Pending payment',
+                                  'assets/images/payment.jpg', '5'),
+                              cardDetails('To be shipped',
+                                  'assets/images/shopping.jpg', '2'),
                             ],
                           ),
-                          SizedBox(height: 10.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              cardDetails(
-                                  'To be received', 'assets/trucks.png', '8'),
-                              cardDetails('Return / Replace',
-                                  'assets/returnbox.png', '0'),
-                            ],
-                          ),
-                          SizedBox(height: 5.0)
+                          // SizedBox(height: 10.0),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: <Widget>[
+                          //     cardDetails(
+                          //         'To be received', 'assets/trucks.png', '8'),
+                          //     cardDetails('Return / Replace',
+                          //         'assets/returnbox.png', '0'),
+                          //   ],
+                          // ),
+                          // SizedBox(height: 5.0)
                         ],
                       )
                     ],
@@ -446,7 +447,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 imgPath,
                 fit: BoxFit.cover,
                 height: 50.0,
-                width: 50.0,
+                width: 130.0,
               ),
             ),
             SizedBox(height: 2.0),

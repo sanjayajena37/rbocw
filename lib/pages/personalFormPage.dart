@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rbocw/model/userPersonalForm.dart';
+import 'package:rbocw/models/UserPersonalFormModel.dart';
+import 'package:rbocw/models/memberModel.dart';
+import 'package:rbocw/pages/addmemberForm.dart';
 import 'package:rbocw/providers/SharedPref.dart';
 import 'package:rbocw/providers/app_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalForm extends StatefulWidget {
   final Function(int, bool) updateTab;
@@ -27,7 +28,8 @@ class PersonalFormState extends State<PersonalForm> {
   TextEditingController _aadharNumber = new TextEditingController();
 
   SharedPref sharedPref = SharedPref();
-  UserPersonalForm userPersonalForm = UserPersonalForm();
+  UserPersonalFormModel userPersonalForm = UserPersonalFormModel();
+  MemberModel memberModel = new MemberModel();
   bool firstNameError = false;
   bool lastNameError = false;
   bool sexError = false;
@@ -47,6 +49,9 @@ class PersonalFormState extends State<PersonalForm> {
     {"name": "Aadhar Card", "id": "2"}
   ];
   String selectedAgeProof = "";
+
+  List<AddMemberForm> members = [];
+
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -72,9 +77,31 @@ class PersonalFormState extends State<PersonalForm> {
 
     if (personalForm != null) {
       print("userPersonalForm" + personalForm.toString());
-      UserPersonalForm userPersonalForm =
-          UserPersonalForm.fromJson(await sharedPref.read("userForm"));
-
+      UserPersonalFormModel userPersonalForm =
+          UserPersonalFormModel.fromJson(await sharedPref.read("userForm"));
+      if (userPersonalForm.member != null) {
+        for (var i = 0; i < userPersonalForm.member.length; i++) {
+          print("userPersonalForm.member>>>>>>>>" +
+              userPersonalForm.member.toString());
+          var _member = MemberModel();
+          int index = i;
+          _member = userPersonalForm.member[i];
+          print("add form call");
+          members.add(AddMemberForm(
+            member: _member,
+            index: index,
+            onDelete: () => onDelete(_member),
+          ));
+        }
+      }
+      //      var _member = MemberModel();
+      // int index = members.length;
+      // print("add form call");
+      // members.add(AddMemberForm(
+      //   member: _member,
+      //   index: index,
+      //   onDelete: () => onDelete(_member),
+      // ));
       setState(() {
         _firstName.text = userPersonalForm.firstName;
         _lastname.text = userPersonalForm.lastName;
@@ -93,81 +120,146 @@ class PersonalFormState extends State<PersonalForm> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(5),
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return SingleChildScrollView(
+      child: Container(
+        child: ListView(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: EdgeInsets.all(5),
           children: <Widget>[
-            CircleAvatar(
-              // backgroundImage: NetworkImage(
-              //   "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg",
-              // ),
-              child: ClipOval(
-                child: new SizedBox(
-                  width: 180.0,
-                  height: 180.0,
-                  child: (_image != null)
-                      ? Image.file(
-                          _image,
-                          fit: BoxFit.fill,
-                        )
-                      : Image.network(
-                          "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg",
-                          fit: BoxFit.fill,
-                        ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  // backgroundImage: NetworkImage(
+                  //   "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg",
+                  // ),
+                  child: ClipOval(
+                    child: new SizedBox(
+                      width: 180.0,
+                      height: 180.0,
+                      child: (_image != null)
+                          ? Image.file(
+                              _image,
+                              fit: BoxFit.fill,
+                            )
+                          : Image.network(
+                              "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg",
+                              fit: BoxFit.fill,
+                            ),
+                    ),
+                  ),
+                  radius: 50.0,
                 ),
-              ),
-              radius: 50.0,
+                Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: IconButton(
+                      icon: Icon(Icons.camera_alt),
+                      onPressed: () {
+                        getImage();
+                      }),
+                )
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 40),
-              child: IconButton(
-                  icon: Icon(Icons.camera_alt),
-                  onPressed: () {
-                    getImage();
-                  }),
+            SizedBox(
+              height: 20,
+            ),
+            Form(
+              key: _formKey,
+              autovalidate: _autovalidate,
+              child: Column(
+                children: <Widget>[
+                  inputFieldContainer(firstName()),
+                  firstNameError
+                      ? errorMsg("Please enter first name")
+                      : Container(),
+                  inputFieldContainer(lastName()),
+                  lastNameError
+                      ? errorMsg("Please enter Last name")
+                      : Container(),
+                  sexDropDown(),
+                  sexError ? errorMsg("Please select sex") : Container(),
+                  maritalStatusDropDown(),
+                  maritalError
+                      ? errorMsg("Please select mariatal status")
+                      : Container(),
+                  inputFieldContainer(fatherName()),
+                  fatherError
+                      ? errorMsg("Please enter father name")
+                      : Container(),
+                  dob(),
+                  dobError ? errorMsg("Please enter dob ") : Container(),
+                  mobileNumber(),
+                  phoneNoError
+                      ? errorMsg("Please enter mobile bumber")
+                      : Container(),
+                  inputFieldContainer(aadharNumber()),
+                  aadharError
+                      ? errorMsg("Please enter aadhar number")
+                      : Container(),
+                  ageProofDropDown(),
+                  ageProofError
+                      ? errorMsg("Please select age proof")
+                      : Container(),
+                  familyMember(),
+                  continueButton()
+                ],
+              ),
             )
           ],
         ),
-        SizedBox(
-          height: 20,
+      ),
+    );
+  }
+
+  Widget familyMember() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 14.0),
+              child: Text(
+                "Add Family Member",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 14.0),
+              child: InkWell(
+                onTap: onAddForm,
+                child: Icon(
+                  Icons.add,
+                  color: Colors.green,
+                ),
+              ),
+            ),
+          ],
         ),
-        Form(
-          key: _formKey,
-          autovalidate: _autovalidate,
-          child: Column(
-            children: <Widget>[
-              inputFieldContainer(firstName()),
-              firstNameError
-                  ? errorMsg("Please enter first name")
-                  : Container(),
-              inputFieldContainer(lastName()),
-              lastNameError ? errorMsg("Please enter Last name") : Container(),
-              sexDropDown(),
-              sexError ? errorMsg("Please select sex") : Container(),
-              maritalStatusDropDown(),
-              maritalError
-                  ? errorMsg("Please select mariatal status")
-                  : Container(),
-              inputFieldContainer(fatherName()),
-              fatherError ? errorMsg("Please enter father name") : Container(),
-              dob(),
-              dobError ? errorMsg("Please enter dob ") : Container(),
-              mobileNumber(),
-              phoneNoError
-                  ? errorMsg("Please enter mobile bumber")
-                  : Container(),
-              inputFieldContainer(aadharNumber()),
-              aadharError
-                  ? errorMsg("Please enter aadhar number")
-                  : Container(),
-              ageProofDropDown(),
-              ageProofError ? errorMsg("Please select age proof") : Container(),
-              continueButton()
-            ],
-          ),
-        )
+        SizedBox(
+          height: 10,
+        ),
+        members.length <= 0
+            ? Container()
+            : ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: members.length,
+                itemBuilder: (_, i) => members[i],
+              ),
+
+        // Column(
+        //   children: <Widget>[
+        //     inputFieldContainer(lastName()),
+        //     lastNameError ? errorMsg("Please enter name") : Container(),
+        //     dob(),
+        //     dobError ? errorMsg("Please enter dob ") : Container(),
+        //     sexDropDown(),
+        //     sexError ? errorMsg("Please select relation") : Container(),
+        //   ],
+        // )
       ],
     );
   }
@@ -606,7 +698,32 @@ class PersonalFormState extends State<PersonalForm> {
     );
   }
 
-  personalFormValidate() {
+  ///on add form
+  void onAddForm() {
+    setState(() {
+      var _member = MemberModel();
+      int index = members.length;
+      print("add form call");
+      members.add(AddMemberForm(
+        member: _member,
+        index: index,
+        onDelete: () => onDelete(_member),
+      ));
+    });
+  }
+
+  ///on form user deleted
+  void onDelete(MemberModel _member) {
+    setState(() {
+      var find = members.firstWhere(
+        (it) => it.member == _member,
+        orElse: () => null,
+      );
+      if (find != null) members.removeAt(members.indexOf(find));
+    });
+  }
+
+  personalFormValidate() async {
     _formKey.currentState.validate();
     print("sex>>>>" + selectedSex.toString());
     if (selectedSex != '') {
@@ -633,6 +750,20 @@ class PersonalFormState extends State<PersonalForm> {
       sharedPref.save("userForm",
           userPersonalForm); //save once fields are valid, onSaved method invoked for every form fields
       // return true;
+      if (members.length > 0) {
+        var allValid = true;
+        List<MemberModel> m = [];
+        members.forEach((form) {
+          allValid = allValid && form.isValid();
+          m.add(form.member);
+        });
+        if (allValid) {
+          print("valid" + allValid.toString());
+
+          userPersonalForm.member = m;
+        }
+      }
+      print("members>>>>>" + members.toString());
       widget.updateTab(0, true);
     } else {
       setState(() {

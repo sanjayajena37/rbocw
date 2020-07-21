@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rbocw/model/userPersonalForm.dart';
+import 'package:rbocw/models/UserPersonalFormModel.dart';
 import 'package:rbocw/pages/personalFormPage.dart';
 import 'package:rbocw/providers/SharedPref.dart';
-import 'package:rbocw/providers/app_data.dart';
 import 'package:rbocw/scoped-model/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +27,7 @@ class _NewUserRegisterState extends State<NewUserRegister>
   int _selectedTab = 0;
   List<String> _isDisabled = ["false", "true", "true", "true"];
   SharedPref sharedPref = SharedPref();
-  UserPersonalForm userPersonalForm = UserPersonalForm();
+  UserPersonalFormModel userPersonalForm = UserPersonalFormModel();
   @override
   void initState() {
     super.initState();
@@ -178,8 +177,8 @@ class _NewUserRegisterState extends State<NewUserRegister>
   }
 
   getUserPersonalFormData() async {
-    UserPersonalForm userPersonalForm =
-        UserPersonalForm.fromJson(await sharedPref.read("userForm"));
+    UserPersonalFormModel userPersonalForm =
+        UserPersonalFormModel.fromJson(await sharedPref.read("userForm"));
     print(userPersonalForm.firstName);
   }
 
