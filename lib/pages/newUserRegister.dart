@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rbocw/model/userPersonalForm.dart';
+import 'package:rbocw/pages/OtherForm.dart';
 import 'package:rbocw/pages/personalFormPage.dart';
 import 'package:rbocw/providers/SharedPref.dart';
 import 'package:rbocw/providers/app_data.dart';
@@ -8,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:rbocw/pages/addressForm.dart';
 import 'package:rbocw/pages/familyMember.dart';
+
+import '../providers/app_data.dart';
 
 class NewUserRegister extends StatefulWidget {
   final MainModel model;
@@ -74,6 +77,7 @@ class _NewUserRegisterState extends State<NewUserRegister>
     return Scaffold(
       appBar: AppBar(
         title: Text("Register User"),
+        backgroundColor: AppData.kPrimaryColor,
       ),
       backgroundColor: Colors.white,
       body: Padding(
@@ -89,17 +93,19 @@ class _NewUserRegisterState extends State<NewUserRegister>
                   controller: _tabController,
                   labelPadding:
                       EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                  unselectedLabelColor: Color(0xFF53B64B),
+                  //unselectedLabelColor: Color(0xFF255E55),
+                  unselectedLabelColor: (_isDisabled[_tabController.index] == "false") ? Color(0xFF255E55):Color(0xFF000000),
                   indicatorSize: TabBarIndicatorSize.label,
                   indicator: BoxDecoration(
-                    color: Color(0xFF53B64B),
+                    color: Color(0xFF255E55),
                     borderRadius:
-                        const BorderRadius.all(const Radius.circular(25.0)),
+                        const BorderRadius.all(const Radius.circular(10.0)),
                   ),
+
                   tabs: [
                     _getTab(0, "Personal"),
                     _getTab(1, "Address"),
-                    _getTab(2, "Family member"),
+                    _getTab(2, "Work Experience"),
                     _getTab(3, "Others"),
                   ],
                 ),
@@ -115,7 +121,8 @@ class _NewUserRegisterState extends State<NewUserRegister>
                       // Icon(Icons.directions_bike),
                       //
                       FamilyMemberForm(updateTab: updateTab),
-                      Icon(Icons.directions_bike),
+                      OtherForm(updateTab: updateTab)
+                      //Icon(Icons.directions_bike),
                     ],
                   ),
                 ),
@@ -141,10 +148,10 @@ class _NewUserRegisterState extends State<NewUserRegister>
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: Color(0xFF53B64B), width: 1)),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: (_isDisabled[_tabController.index] == "false")?Color(0xFF255E55):Color(0xFFED3833), width: 1)),
         child: Center(
-          child: Text(text),
+          child: Text(text,textAlign: TextAlign.center,),
         ),
       ),
     );

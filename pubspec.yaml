@@ -27,6 +27,7 @@ dependencies:
   intl: ^0.15.0
   image_picker: ^0.5.4+3
   flutter_native_splash: ^0.1.4
+  flutter_switch: ^0.0.2
   
   flutter:
     sdk: flutter
