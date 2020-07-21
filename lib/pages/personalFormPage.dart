@@ -294,7 +294,8 @@ class PersonalFormState extends State<PersonalForm> {
 
   Widget inputFieldContainer(child) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:
+          const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
@@ -364,7 +365,9 @@ class PersonalFormState extends State<PersonalForm> {
 
   Widget sexDropDown() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      //padding: const EdgeInsets.all(8.0),
+      padding:
+          const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
       child: Container(
           // height: 50s,
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -426,7 +429,9 @@ class PersonalFormState extends State<PersonalForm> {
 
   Widget maritalStatusDropDown() {
     return Padding(
-        padding: const EdgeInsets.all(8.0),
+        //padding: const EdgeInsets.all(8.0),
+        padding:
+            const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
         child: Container(
           height: 45,
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -468,6 +473,7 @@ class PersonalFormState extends State<PersonalForm> {
 
   Widget ageProofDropDown() {
     return Padding(
+//        padding: const EdgeInsets.all(8.0),
         padding: const EdgeInsets.all(8.0),
         child: Container(
           height: 45,
@@ -536,7 +542,9 @@ class PersonalFormState extends State<PersonalForm> {
 
   Widget mobileNumber() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      //padding: const EdgeInsets.all(8.0),
+      padding:
+          const EdgeInsets.only(top: 0.0, left: 8.0, right: 8.0, bottom: 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: AppData.kPrimaryLightColor,
@@ -633,6 +641,7 @@ class PersonalFormState extends State<PersonalForm> {
 
   Widget dob() {
     return Padding(
+      //padding: const EdgeInsets.symmetric(horizontal: 8),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: GestureDetector(
         onTap: () => _selectDate(context),

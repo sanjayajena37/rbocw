@@ -30,6 +30,7 @@ dependencies:
   bubbled_navigation_bar: ^0.0.3 
   font_awesome_flutter: ^8.8.1
   json_annotation: 
+  flutter_switch: ^0.0.2
   
   flutter:
     sdk: flutter

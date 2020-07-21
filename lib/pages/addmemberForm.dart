@@ -60,7 +60,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
               height: 40,
               padding: EdgeInsets.symmetric(horizontal: 15),
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Color(0xFF255E55),
                 borderRadius: BorderRadius.circular(29),
               ),
               child: Row(
@@ -73,6 +73,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
                   IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: widget.onDelete,
+                    color: Colors.red,
                   )
                 ],
               ),
