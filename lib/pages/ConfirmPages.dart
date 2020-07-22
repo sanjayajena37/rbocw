@@ -11,19 +11,19 @@ import 'package:rbocw/pages/workExperience.dart';
 
 import '../providers/app_data.dart';
 
-class NewUserRegister extends StatefulWidget {
+class ConfirmPages extends StatefulWidget {
   final MainModel model;
 
-  const NewUserRegister({
+  const ConfirmPages({
     Key key,
     this.model,
   }) : super(key: key);
 
   @override
-  _NewUserRegisterState createState() => _NewUserRegisterState();
+  _ConfirmPagesState createState() => _ConfirmPagesState();
 }
 
-class _NewUserRegisterState extends State<NewUserRegister>
+class _ConfirmPagesState extends State<ConfirmPages>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
@@ -75,7 +75,7 @@ class _NewUserRegisterState extends State<NewUserRegister>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Step 1/3: Register"),
+        title: Text("Step 3/3: Confirmation"),
         backgroundColor: AppData.kPrimaryColor,
       ),
       backgroundColor: Colors.white,
@@ -118,9 +118,9 @@ class _NewUserRegisterState extends State<NewUserRegister>
                     children: [
                       PersonalForm(
                         updateTab: updateTab,
-                        isConfirmPage: false,
+                        isConfirmPage: true,
                       ),
-                      AddressForm(updateTab: updateTab,isConfirmPage: false,),
+                      AddressForm(updateTab: updateTab,isConfirmPage: true,),
                       // Icon(Icons.directions_bike),
                       //
                       WorkExperienceForm(updateTab: updateTab),

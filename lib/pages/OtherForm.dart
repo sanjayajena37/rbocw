@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rbocw/pages/nominalPage.dart';
 import 'package:rbocw/providers/SharedPref.dart';
 import 'package:rbocw/providers/app_data.dart';
 import 'dart:io';
 
+import '../providers/app_data.dart';
 import 'CustomSignature.dart';
 
 class OtherForm extends StatefulWidget {
@@ -58,7 +60,6 @@ class OtherFormState extends State<OtherForm> {
   bool bankError = false;
   String selectBank = "";
 
-
   List<String> certifiedList = [
     "Certified 1",
     "Certified 2",
@@ -109,10 +110,14 @@ class OtherFormState extends State<OtherForm> {
                   nJobError, selectNJob, nJobList, "Select Nature of Job"),
               nJobError ? errorMsg("Please select Job Nature") : Container(),
 
-              SizedBox(height: 10.0,),
+              SizedBox(
+                height: 10.0,
+              ),
               //////Magnera
               IsMagneraButton(),
-              SizedBox(height: 5.0,),
+              SizedBox(
+                height: 5.0,
+              ),
 
               //////Educational Qualification
               dynamicDropDown(qualifiedError, selectQualified, qualifiedList,
@@ -135,11 +140,17 @@ class OtherFormState extends State<OtherForm> {
               dynamicDropDown(castError, selectCast, castList, "Select Cast"),
               castError ? errorMsg("Please select Qualification") : Container(),
 
-              SizedBox(height: 15.0,),
+              SizedBox(
+                height: 15.0,
+              ),
               IsMinerSwitchButton(),
-              SizedBox(height: 15.0,),
+              SizedBox(
+                height: 15.0,
+              ),
               MigrantWorkerSwitchButton(),
-              SizedBox(height: 10.0,),
+              SizedBox(
+                height: 10.0,
+              ),
 
               //////Bank Name
               dynamicDropDown(bankError, selectBank, bankList, "Select bank"),
@@ -182,10 +193,14 @@ class OtherFormState extends State<OtherForm> {
                   ),
                   SizedBox(
                     width: 10.0,
-                  )
-                  , RaisedButton(
+                  ),
+                  RaisedButton(
                     onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (BuildContext context)=>Signature(),));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Signature(),
+                          ));
                     },
                     child: Text("Capture Signature"),
                   )
@@ -206,9 +221,8 @@ class OtherFormState extends State<OtherForm> {
                 ),
               ),
 
-              dynamicDropDown(
-                  certificateError, selectCertificate, certifiedList,
-                  "Select Certified By"),
+              dynamicDropDown(certificateError, selectCertificate,
+                  certifiedList, "Select Certified By"),
               certificateError
                   ? errorMsg("Please select Certificated BY")
                   : Container(),
@@ -219,17 +233,18 @@ class OtherFormState extends State<OtherForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Copy of employee certificate", style: TextStyle(
-                      fontSize: 19.0
-                  ),),
+                  Text(
+                    "Copy of employee certificate",
+                    style: TextStyle(fontSize: 17.0),
+                  ),
                   SizedBox(
                     width: 10.0,
-                  )
-                  , RaisedButton(
+                  ),
+                  RaisedButton(
                     onPressed: () {
                       getCerificateImage();
                     },
-                    child: Text("Select Certificate"),
+                    child: Text("Certificate"),
                   )
                 ],
               ),
@@ -255,7 +270,8 @@ class OtherFormState extends State<OtherForm> {
                 ),
               ),
 
-              continueButton()
+              //continueButton(),
+              nextButton()
             ],
           ),
         )
@@ -266,30 +282,34 @@ class OtherFormState extends State<OtherForm> {
   Widget IsMagneraButton() {
     return Row(
       //mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(left: 8.0, right: 8.0),
+          padding: EdgeInsets.only(left: 10.0, right: 8.0),
           child: Text(
             "Is MGNREGA?",
             style: TextStyle(
-              fontSize: 18.0,
-            ),
+                //    fontSize: 18.0,
+                ),
           ),
         ),
-        FlutterSwitch(
-          height: 28.0,
-          width: 45.0,
-          padding: 4.0,
-          toggleSize: 15.0,
-          borderRadius: 15.0,
-          activeColor: AppData.kPrimaryColor,
-          //showOnOff: true,
-          value: isMagnera,
-          onToggle: (valuePress) {
-            setState(() {
-              isMagnera = valuePress;
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: FlutterSwitch(
+            height: 28.0,
+            width: 45.0,
+            padding: 4.0,
+            toggleSize: 15.0,
+            borderRadius: 15.0,
+            activeColor: AppData.kPrimaryColor,
+            //showOnOff: true,
+            value: isMagnera,
+            onToggle: (valuePress) {
+              setState(() {
+                isMagnera = valuePress;
+              });
+            },
+          ),
         ),
       ],
     );
@@ -317,36 +337,40 @@ class OtherFormState extends State<OtherForm> {
     setState(() {
       _imageCertificate = image;
 
-      print('Image Path $_imageSignature');
+      print('Image Path $_imageCertificate');
     });
   }
 
   Widget IsMinerSwitchButton() {
     return Row(
       //mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Padding(
             padding: EdgeInsets.only(left: 8.0, right: 8.0),
             child: Text(
               "Whether Minority/Physically Challenged/ET?",
               style: TextStyle(
-                fontSize: 18.0,
-              ),
+                  //fontSize: 16.0,
+                  ),
             )),
-        FlutterSwitch(
-          height: 28.0,
-          width: 45.0,
-          padding: 4.0,
-          toggleSize: 15.0,
-          borderRadius: 15.0,
-          activeColor: AppData.kPrimaryColor,
-          //showOnOff: true,
-          value: isMagnera,
-          onToggle: (valuePress) {
-            setState(() {
-              isMagnera = valuePress;
-            });
-          },
+        Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: FlutterSwitch(
+            height: 28.0,
+            width: 45.0,
+            padding: 4.0,
+            toggleSize: 15.0,
+            borderRadius: 15.0,
+            activeColor: AppData.kPrimaryColor,
+            //showOnOff: true,
+            value: isMagnera,
+            onToggle: (valuePress) {
+              setState(() {
+                isMagnera = valuePress;
+              });
+            },
+          ),
         ),
       ],
     );
@@ -355,29 +379,33 @@ class OtherFormState extends State<OtherForm> {
   Widget MigrantWorkerSwitchButton() {
     return Row(
       //mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Padding(
-            padding: EdgeInsets.only(left: 8.0, right: 8.0),
+            padding: EdgeInsets.only(left: 10.0, right: 8.0),
             child: Text(
               "Whether Interstate migrant worker?",
               style: TextStyle(
-                fontSize: 18.0,
-              ),
+                  //fontSize: 18.0,
+                  ),
             )),
-        FlutterSwitch(
-          height: 28.0,
-          width: 45.0,
-          padding: 4.0,
-          toggleSize: 15.0,
-          borderRadius: 15.0,
-          activeColor: AppData.kPrimaryColor,
-          //showOnOff: true,
-          value: isMigrant,
-          onToggle: (valuePress) {
-            setState(() {
-              isMigrant = valuePress;
-            });
-          },
+        Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: FlutterSwitch(
+            height: 28.0,
+            width: 45.0,
+            padding: 4.0,
+            toggleSize: 15.0,
+            borderRadius: 15.0,
+            activeColor: AppData.kPrimaryColor,
+            //showOnOff: true,
+            value: isMigrant,
+            onToggle: (valuePress) {
+              setState(() {
+                isMigrant = valuePress;
+              });
+            },
+          ),
         ),
       ],
     );
@@ -401,7 +429,7 @@ class OtherFormState extends State<OtherForm> {
   Widget inputFieldContainer(child) {
     return Padding(
       padding:
-      const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
+          const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
@@ -418,7 +446,7 @@ class OtherFormState extends State<OtherForm> {
       visible: (visiblePresent) ? false : true,
       child: Padding(
         padding:
-        const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
+            const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
@@ -484,6 +512,36 @@ class OtherFormState extends State<OtherForm> {
     );
   }
 
+  Widget nextButton() {
+    return new InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => NomineePage(),
+        ),
+      ),
+      child: Padding(
+        padding:
+            const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
+        child: new Container(
+          //width: 100.0,
+          height: 45.0,
+          decoration: new BoxDecoration(
+            color: AppData.kPrimaryColor,
+            //border: new Border.all(color: Colors.white, width: 2.0),
+            borderRadius: new BorderRadius.circular(17.0),
+          ),
+          child: new Center(
+            child: new Text(
+              'Next Step',
+              style: new TextStyle(fontSize: 18.0, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   addressFormvalidate() {
     _formKey2.currentState.validate();
     print("address validation call" + nJobError.toString());
@@ -499,12 +557,12 @@ class OtherFormState extends State<OtherForm> {
     }
   }
 
-  Widget dynamicDropDown(bool error, String selectData, List<String> dataList,
-      String hintText) {
+  Widget dynamicDropDown(
+      bool error, String selectData, List<String> dataList, String hintText) {
     return Padding(
-      //padding: const EdgeInsets.all(8.0),
+        //padding: const EdgeInsets.all(8.0),
         padding:
-        const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
+            const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
         child: Container(
           height: 45,
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -544,12 +602,12 @@ class OtherFormState extends State<OtherForm> {
         ));
   }
 
-  Widget dynamicVisibleDropDown(bool error, String selectData,
-      List<String> dataList, String hintText) {
+  Widget dynamicVisibleDropDown(
+      bool error, String selectData, List<String> dataList, String hintText) {
     return Visibility(
       visible: (visiblePresent) ? false : true,
       child: Padding(
-        //padding: const EdgeInsets.all(8.0),
+          //padding: const EdgeInsets.all(8.0),
           padding: const EdgeInsets.only(
               top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
           child: Container(

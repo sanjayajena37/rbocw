@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:rbocw/models/AddressFormModel.dart';
 import 'package:rbocw/providers/SharedPref.dart';
 import 'package:rbocw/providers/app_data.dart';
 
+import '../models/UserPersonalFormModel.dart';
 import '../providers/app_data.dart';
 
 class AddressForm extends StatefulWidget {
   final Function(int, bool) updateTab;
 
-  AddressForm({Key key, @required this.updateTab}) : super(key: key);
+  bool isConfirmPage;
+
+  AddressForm({Key key, @required this.updateTab,this.isConfirmPage}) : super(key: key);
 
   @override
   AddressFormState createState() => AddressFormState();
@@ -19,6 +23,7 @@ class AddressFormState extends State<AddressForm> {
   final _formKey1 = GlobalKey<FormState>();
   bool _autovalidate = false;
   SharedPref sharedPref = SharedPref();
+  AddressShareModel _addModel=  AddressShareModel();
   bool villageError = false;
   bool streatError = false;
   bool postOfcError = false;
@@ -60,14 +65,20 @@ class AddressFormState extends State<AddressForm> {
     "Village 3",
     "Village 3"
   ];
+
   bool villageDError = false;
   String selectVillageD = "";
   bool villageDError1 = false;
   String selectVillageD1 = "";
 
-  TextEditingController _firstName = new TextEditingController();
+  TextEditingController _village = new TextEditingController();
+  TextEditingController _villageP = new TextEditingController();
+  TextEditingController _street = new TextEditingController();
+  TextEditingController _streetP = new TextEditingController();
+  TextEditingController _office = new TextEditingController();
+  TextEditingController _officeP = new TextEditingController();
 
-  //TextEditingController _firstName = new TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -215,26 +226,60 @@ class AddressFormState extends State<AddressForm> {
               child: Text(
                 "If beneficiary is out of state?",
                 style: TextStyle(
-                  fontSize: 18.0,
+                 // fontSize: 18.0,
                 ),
               )),
-          FlutterSwitch(
-            height: 28.0,
-            width: 45.0,
-            padding: 4.0,
-            toggleSize: 15.0,
-            borderRadius: 15.0,
-            activeColor: AppData.kPrimaryColor,
-            value: outOfstate,
-            onToggle: (valuePress) {
-              setState(() {
-                outOfstate = valuePress;
-              });
-            },
+          Padding(
+            padding: const EdgeInsets.only(right:8.0),
+            child: FlutterSwitch(
+              height: 28.0,
+              width: 45.0,
+              padding: 4.0,
+              toggleSize: 15.0,
+              borderRadius: 15.0,
+              activeColor: AppData.kPrimaryColor,
+              value: outOfstate,
+              onToggle: (valuePress) {
+                setState(() {
+                  outOfstate = valuePress;
+                });
+              },
+            ),
           ),
         ],
       ),
     );
+  }
+
+
+  setPersonalFormData() async {
+    var personalForm = await sharedPref.getKey("userForm");
+
+    if (personalForm != null) {
+      print("userPersonalForm" + personalForm.toString());
+      UserPersonalFormModel userPersonalForm =
+      UserPersonalFormModel.fromJson(await sharedPref.read("userForm"));
+      if (userPersonalForm.member != null) {
+        for (var i = 0; i < userPersonalForm.member.length; i++) {
+          print("userPersonalForm.member>>>>>>>>" +
+              userPersonalForm.member.toString());
+        }
+      }
+
+      setState(() {
+//        _firstName.text = userPersonalForm.firstName;
+//        _lastname.text = userPersonalForm.lastName;
+//        _date.text = userPersonalForm.dob;
+//        _fatherName.text = userPersonalForm.fatherName;
+//        _aadharNumber.text = userPersonalForm.aadharNo;
+//        _phoneNumber.text = userPersonalForm.phoneNumber;
+//        selectedAgeProof = userPersonalForm.ageProof;
+//        selectedSex = userPersonalForm.sex;
+//        selectedMaritalStatus = userPersonalForm.maritalStatus;
+      });
+    } else {
+      print("data not save yet!");
+    }
   }
 
   Widget presentAddSwitchButton() {
@@ -248,24 +293,27 @@ class AddressFormState extends State<AddressForm> {
                 child: Text(
                   "If same as present address click yes? ",
                   style: TextStyle(
-                    fontSize: 18.0,
+                  //  fontSize: 18.0,
                   ),
                 )),
           ),
-          FlutterSwitch(
-            height: 28.0,
-            width: 45.0,
-            padding: 4.0,
-            toggleSize: 15.0,
-            borderRadius: 15.0,
-            activeColor: AppData.kPrimaryColor,
-            //showOnOff: true,
-            value: visiblePresent,
-            onToggle: (valuePress) {
-              setState(() {
-                visiblePresent = valuePress;
-              });
-            },
+          Padding(
+            padding: const EdgeInsets.only(right:8.0),
+            child: FlutterSwitch(
+              height: 28.0,
+              width: 45.0,
+              padding: 4.0,
+              toggleSize: 15.0,
+              borderRadius: 15.0,
+              activeColor: AppData.kPrimaryColor,
+              //showOnOff: true,
+              value: visiblePresent,
+              onToggle: (valuePress) {
+                setState(() {
+                  visiblePresent = valuePress;
+                });
+              },
+            ),
           ),
         ],
       ),
@@ -320,9 +368,10 @@ class AddressFormState extends State<AddressForm> {
     );
   }
 
-  TextFormField reuseTextField(String hint, bool error) {
+  TextFormField reuseTextField(String hint, bool error,AddressShareModel add) {
     return TextFormField(
       //controller: _firstName,
+      enabled: widget.isConfirmPage?false:true,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.text,
@@ -345,7 +394,7 @@ class AddressFormState extends State<AddressForm> {
         // return null;
       },
       onSaved: (value) {
-        // userPersonalForm.firstName = value;
+        _addModel.names = value;
       },
     );
   }
@@ -407,6 +456,7 @@ class AddressFormState extends State<AddressForm> {
                 borderSide: BorderSide(color: Colors.white),
               ),
             ),
+            //disabledHint:Text(selectData != '' ? selectData : null) ,
             value: selectData != '' ? selectData : null,
             hint: Text(hintText),
             onChanged: (value) {

@@ -6,8 +6,10 @@ import 'package:rbocw/pages/profile.dart';
 import 'package:rbocw/pages/setting.dart';
 import 'package:rbocw/scoped-model/main.dart';
 
+import '../providers/app_data.dart';
 import 'benificiary.dart';
 import 'dashboardPage.dart';
+import 'newUserRegister.dart';
 
 class HomePage extends StatefulWidget {
   final MainModel model;
@@ -18,8 +20,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final titles = ['Home', 'Benificiary', 'Profile', 'Setting'];
-  final colors = [Colors.purple, Colors.teal, Colors.green, Colors.cyan];
+  final titles = ['Home', 'Benificiary', 'Profile', 'Edit'];
+  //final colors = [Colors.purple, Colors.teal, Colors.green, Colors.cyan];
+  final colors = [AppData.kPrimaryColor, AppData.kPrimaryColor, AppData.kPrimaryColor, AppData.kPrimaryColor];
   final icons = [
     CupertinoIcons.home,
     CupertinoIcons.person_add,
@@ -75,7 +78,8 @@ class _HomePageState extends State<HomePage> {
               DashboardPage(),
               BenificiaryPage(),
               ProfilePage(),
-              SettingPage()
+              //SettingPage()
+              NewUserRegister()
             ],
             onPageChanged: (page) {},
           ),

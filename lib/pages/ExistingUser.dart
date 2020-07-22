@@ -5,19 +5,19 @@ import 'package:rbocw/scoped-model/main.dart';
 import 'package:rbocw/widgets/phone_number.dart';
 import 'package:rbocw/widgets/rounded_input_field.dart';
 
-class ConfirmPage extends StatefulWidget {
+class ExistingUser extends StatefulWidget {
   final MainModel model;
 
-  const ConfirmPage({
+  const ExistingUser({
     Key key,
     this.model,
   }) : super(key: key);
 
   @override
-  _ConfirmPageState createState() => _ConfirmPageState();
+  _ExistingUserState createState() => _ExistingUserState();
 }
 
-class _ConfirmPageState extends State<ConfirmPage> {
+class _ExistingUserState extends State<ExistingUser> {
   bool _isExistinguser = false;
   DateTime selectedDate = DateTime.now();
   TextEditingController _date = new TextEditingController();

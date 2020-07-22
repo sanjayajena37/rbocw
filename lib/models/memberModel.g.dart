@@ -7,10 +7,11 @@ part of 'memberModel.dart';
 // **************************************************************************
 
 MemberModel _$MemberModelFromJson(Map<String, dynamic> json) {
-  return MemberModel()
-    ..name = json['name'] as String
-    ..dob = json['dob'] as String
-    ..relation = json['relation'] as String;
+  return MemberModel(
+    name: json['name'] as String,
+    dob: json['dob'] as String,
+    relation: json['relation'] as String,
+  );
 }
 
 Map<String, dynamic> _$MemberModelToJson(MemberModel instance) =>

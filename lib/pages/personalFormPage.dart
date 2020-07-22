@@ -10,7 +10,12 @@ import 'package:rbocw/providers/app_data.dart';
 
 class PersonalForm extends StatefulWidget {
   final Function(int, bool) updateTab;
-  const PersonalForm({Key key, @required this.updateTab}) : super(key: key);
+
+  bool isConfirmPage = false;
+
+  PersonalForm({Key key, @required this.updateTab, this.isConfirmPage})
+      : super(key: key);
+
   @override
   PersonalFormState createState() => PersonalFormState();
 }
@@ -39,6 +44,8 @@ class PersonalFormState extends State<PersonalForm> {
   bool phoneNoError = false;
   bool aadharError = false;
   bool ageProofError = false;
+
+  File _imageCertificate;
 
   List<String> sex = ['Male', "Female", "Other"];
   String selectedSex = "";
@@ -201,6 +208,27 @@ class PersonalFormState extends State<PersonalForm> {
                   ageProofError
                       ? errorMsg("Please select age proof")
                       : Container(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+//                      Text(
+//                        "Select Age Proof",
+//                        style: TextStyle(fontSize: 17.0),
+//                      ),
+//                      SizedBox(
+//                        width: 10.0,
+//                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          getCerificateImage();
+                        },
+                        child: Text("Select Age Proof"),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   familyMember(),
                   continueButton()
                 ],
@@ -210,6 +238,19 @@ class PersonalFormState extends State<PersonalForm> {
         ),
       ),
     );
+  }
+
+  Future getCerificateImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var decodedImage = await decodeImageFromList(image.readAsBytesSync());
+    print(decodedImage.width);
+    print(decodedImage.height);
+
+    setState(() {
+      _imageCertificate = image;
+
+      print('Image Path $_imageCertificate');
+    });
   }
 
   Widget familyMember() {
@@ -249,17 +290,6 @@ class PersonalFormState extends State<PersonalForm> {
                 itemCount: members.length,
                 itemBuilder: (_, i) => members[i],
               ),
-
-        // Column(
-        //   children: <Widget>[
-        //     inputFieldContainer(lastName()),
-        //     lastNameError ? errorMsg("Please enter name") : Container(),
-        //     dob(),
-        //     dobError ? errorMsg("Please enter dob ") : Container(),
-        //     sexDropDown(),
-        //     sexError ? errorMsg("Please select relation") : Container(),
-        //   ],
-        // )
       ],
     );
   }
@@ -309,13 +339,14 @@ class PersonalFormState extends State<PersonalForm> {
 
   TextFormField firstName() {
     return TextFormField(
+      enabled: widget.isConfirmPage ? false : true,
       controller: _firstName,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: "First name.",
+        hintText: "First name",
         hintStyle: TextStyle(color: Colors.grey),
         // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       ),
@@ -339,6 +370,7 @@ class PersonalFormState extends State<PersonalForm> {
 
   TextFormField lastName() {
     return TextFormField(
+      enabled: widget.isConfirmPage ? false : true,
       controller: _lastname,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
@@ -377,14 +409,18 @@ class PersonalFormState extends State<PersonalForm> {
           ),
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white))),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+            ),
             value: selectedSex != '' ? selectedSex : null,
+            disabledHint: Text(selectedSex != '' ? selectedSex : null),
             hint: Text("Select"),
-            onChanged: (salutation) {
-              setState(() => selectedSex = salutation);
-              userPersonalForm.sex = selectedSex;
-            },
+            onChanged: widget.isConfirmPage
+                ? null
+                : (salutation) {
+                    setState(() => selectedSex = salutation);
+                    userPersonalForm.sex = selectedSex;
+                  },
             validator: (value) {
               print("value" + value.toString());
               print("selectedSex>>" + selectedSex.toLowerCase());
@@ -402,28 +438,7 @@ class PersonalFormState extends State<PersonalForm> {
                 child: Text(value),
               );
             }).toList(),
-          )
-          // DropdownButtonHideUnderline(
-          //   child: DropdownButton<String>(
-          //     hint: Text("Select"),
-          //     value: selectedSex != '' ? selectedSex : null,
-          //     isDense: true,
-          //     isExpanded: true,
-          //     onChanged: (newValue) {
-          //       setState(() {
-          //         selectedSex = newValue;
-          //       });
-          //       print(selectedSex);
-          //     },
-          //     items: sex.map((String value) {
-          //       return DropdownMenuItem<String>(
-          //         value: value,
-          //         child: Text(value),
-          //       );
-          //     }).toList(),
-          //   ),
-          // ),
-          ),
+          )),
     );
   }
 
@@ -444,11 +459,15 @@ class PersonalFormState extends State<PersonalForm> {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white))),
             value: selectedMaritalStatus != '' ? selectedMaritalStatus : null,
-            hint: Text("Select"),
-            onChanged: (value) {
-              setState(() => selectedMaritalStatus = value);
-              userPersonalForm.maritalStatus = selectedMaritalStatus;
-            },
+            disabledHint: Text(
+                selectedMaritalStatus != '' ? selectedMaritalStatus : null),
+            hint: Text("Select Marital Status"),
+            onChanged: widget.isConfirmPage
+                ? null
+                : (value) {
+                    setState(() => selectedMaritalStatus = value);
+                    userPersonalForm.maritalStatus = selectedMaritalStatus;
+                  },
             validator: (value) {
               if (value == null) {
                 // maritalError = true;
@@ -486,9 +505,11 @@ class PersonalFormState extends State<PersonalForm> {
             decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white))),
+            //value: selectedAgeProof != '' ? selectedAgeProof : null,
             value: selectedAgeProof != '' ? selectedAgeProof : null,
-            hint: Text("Select"),
-            onChanged: (value) {
+            //disabledHint: Text(selectedAgeProof != '' ? selectedAgeProof : null),
+            hint: Text("Select age proof type"),
+            onChanged: /*widget.isConfirmPage?null:*/(value) {
               setState(() => selectedAgeProof = value);
               userPersonalForm.ageProof = selectedAgeProof;
             },
@@ -516,6 +537,7 @@ class PersonalFormState extends State<PersonalForm> {
 
   TextFormField fatherName() {
     return TextFormField(
+      enabled: widget.isConfirmPage?false:true,
       controller: _fatherName,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
@@ -582,6 +604,7 @@ class PersonalFormState extends State<PersonalForm> {
             ),
             new Expanded(
               child: TextFormField(
+                enabled: widget.isConfirmPage?false:true,
                 controller: _phoneNumber,
                 cursorColor: AppData.kPrimaryColor,
                 textInputAction: TextInputAction.next,
@@ -615,6 +638,7 @@ class PersonalFormState extends State<PersonalForm> {
 
   TextFormField aadharNumber() {
     return TextFormField(
+      enabled: widget.isConfirmPage?false:true,
       controller: _aadharNumber,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
@@ -644,7 +668,7 @@ class PersonalFormState extends State<PersonalForm> {
       //padding: const EdgeInsets.symmetric(horizontal: 8),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: GestureDetector(
-        onTap: () => _selectDate(context),
+        onTap: () =>widget.isConfirmPage?null:_selectDate(context),
         child: AbsorbPointer(
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 10),
@@ -656,6 +680,7 @@ class PersonalFormState extends State<PersonalForm> {
               borderRadius: BorderRadius.circular(29),
             ),
             child: TextFormField(
+              enabled: !widget.isConfirmPage?false:true,
               controller: _date,
               keyboardType: TextInputType.datetime,
               onSaved: (value) {

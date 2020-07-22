@@ -21,6 +21,15 @@ UserPersonalFormModel _$UserPersonalFormModelFromJson(
     ..member = (json['member'] as List)
         ?.map((e) =>
             e == null ? null : MemberModel.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..experience = (json['experience'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ExpeienceModel.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..nominee = (json['nominee'] as List)
+        ?.map((e) =>
+            e == null ? null : NomineeModel.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -37,4 +46,6 @@ Map<String, dynamic> _$UserPersonalFormModelToJson(
       'aadharNo': instance.aadharNo,
       'ageProof': instance.ageProof,
       'member': instance.member?.map((e) => e?.toJson())?.toList(),
+      'experience': instance.experience?.map((e) => e?.toJson())?.toList(),
+      'nominee': instance.nominee?.map((e) => e?.toJson())?.toList(),
     };

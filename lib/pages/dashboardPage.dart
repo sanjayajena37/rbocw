@@ -79,6 +79,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                 style: TextStyle(
                                     fontFamily: 'Quicksand',
                                     fontSize: 25.0,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -86,7 +87,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                 style: TextStyle(
                                     fontFamily: 'Quicksand',
                                     fontSize: 15.0,
-                                    color: Colors.black.withOpacity(0.7)),
+                                    color: Colors.white,
+                                )
+                                    //color: Colors.black.withOpacity(0.7)),
                               )
                             ],
                           ),

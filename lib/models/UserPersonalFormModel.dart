@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rbocw/models/experienceModel.dart';
 import 'package:rbocw/models/memberModel.dart';
+import 'package:rbocw/models/nomineeModel.dart';
 part 'UserPersonalFormModel.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -14,6 +16,8 @@ class UserPersonalFormModel {
   String aadharNo;
   String ageProof;
   List<MemberModel> member;
+  List<ExpeienceModel> experience;
+  List<NomineeModel> nominee;
 
   UserPersonalFormModel();
 

@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:rbocw/pages/register.dart';
 import 'package:rbocw/providers/app_data.dart';
 
-import 'confirmPage.dart';
+import 'ExistingUser.dart';
 
 class OtpView extends StatefulWidget {
   // final String email;
   final String newEmail;
+
   // final bool isGuestCheckOut;
 
   const OtpView({
@@ -250,10 +251,11 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
                         onPressed: () {
                           // you can dall OTP verification API.
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      ConfirmPage()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => ExistingUser(),
+                            ),
+                          );
                         }),
                   ),
                   _otpKeyboardInputButton(
