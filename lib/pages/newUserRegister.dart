@@ -10,6 +10,10 @@ import 'package:rbocw/pages/addressForm.dart';
 import 'package:rbocw/pages/workExperience.dart';
 
 import '../providers/app_data.dart';
+import 'addressForm.dart';
+import 'addressForm.dart';
+import 'personalFormPage.dart';
+import 'personalFormPage.dart';
 
 class NewUserRegister extends StatefulWidget {
   final MainModel model;
@@ -123,8 +127,8 @@ class _NewUserRegisterState extends State<NewUserRegister>
                       AddressForm(updateTab: updateTab,isConfirmPage: false,),
                       // Icon(Icons.directions_bike),
                       //
-                      WorkExperienceForm(updateTab: updateTab),
-                      OtherForm(updateTab: updateTab)
+                      WorkExperienceForm(updateTab: updateTab,isConfirmPage: false,),
+                      OtherForm(updateTab: updateTab,isConfirmPage: false,)
                       //Icon(Icons.directions_bike),
                     ],
                   ),

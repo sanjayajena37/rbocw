@@ -123,8 +123,8 @@ class _ConfirmPagesState extends State<ConfirmPages>
                       AddressForm(updateTab: updateTab,isConfirmPage: true,),
                       // Icon(Icons.directions_bike),
                       //
-                      WorkExperienceForm(updateTab: updateTab),
-                      OtherForm(updateTab: updateTab)
+                      WorkExperienceForm(updateTab: updateTab,isConfirmPage: true),
+                      OtherForm(updateTab: updateTab,isConfirmPage: true,)
                       //Icon(Icons.directions_bike),
                     ],
                   ),
@@ -205,4 +205,7 @@ class _ConfirmPagesState extends State<ConfirmPages>
     var prefs = await SharedPreferences.getInstance();
     prefs.setStringList("registerTabDisaled", _isDisabled);
   }
+
+
+
 }
