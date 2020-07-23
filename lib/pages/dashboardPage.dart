@@ -10,6 +10,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final TextStyle whiteText = TextStyle(color: Colors.white);
+
   int getColorHexFromStr(String colorStr) {
     colorStr = "FF" + colorStr;
     colorStr = colorStr.replaceAll("#", "");

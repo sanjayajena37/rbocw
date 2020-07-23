@@ -13,7 +13,8 @@ import 'CustomSignature.dart';
 class OtherForm extends StatefulWidget {
   final Function(int, bool) updateTab;
 
-  OtherForm({Key key, @required this.updateTab}) : super(key: key);
+  bool isConfirmPage;
+  OtherForm({Key key, @required this.updateTab,this.isConfirmPage}) : super(key: key);
 
   @override
   OtherFormState createState() => OtherFormState();
@@ -133,12 +134,12 @@ class OtherFormState extends State<OtherForm> {
 
               ///////PF/ESI
               inputFieldContainer(
-                  reuseTextField("BPL/Antyodaya Card No If Any", pfError)),
+                  reuseTextField("PF/ESI No If Any", pfError)),
               pfError ? errorMsg("Please enter PF/ESI No If Any") : Container(),
 
               //////SC/ST
               dynamicDropDown(castError, selectCast, castList, "Select Cast"),
-              castError ? errorMsg("Please select Qualification") : Container(),
+              castError ? errorMsg("Please select cast") : Container(),
 
               SizedBox(
                 height: 15.0,
@@ -185,24 +186,30 @@ class OtherFormState extends State<OtherForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
-                      getSignatureImage();
-                    },
-                    child: Text("Select Signature"),
+                  IgnorePointer(
+                    ignoring: widget.isConfirmPage,
+                    child: RaisedButton(
+                      onPressed: () {
+                        getSignatureImage();
+                      },
+                      child: Text("Select Signature"),
+                    ),
                   ),
                   SizedBox(
                     width: 10.0,
                   ),
-                  RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => Signature(),
-                          ));
-                    },
-                    child: Text("Capture Signature"),
+                  IgnorePointer(
+                    ignoring: widget.isConfirmPage,
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => Signature(),
+                            ));
+                      },
+                      child: Text("Capture Signature"),
+                    ),
                   )
                 ],
               ),
@@ -462,6 +469,7 @@ class OtherFormState extends State<OtherForm> {
   TextFormField reuseTextField(String hint, bool error) {
     return TextFormField(
       //controller: _firstName,
+      enabled: widget.isConfirmPage ? false : true,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.text,
@@ -577,8 +585,11 @@ class OtherFormState extends State<OtherForm> {
               ),
             ),
             value: selectData != '' ? selectData : null,
+            disabledHint: Text(selectData != '' ? selectData : null),
             hint: Text(hintText),
-            onChanged: (value) {
+            onChanged: widget.isConfirmPage
+                ? null
+                :(value) {
               setState(() => selectData = value);
               //userPersonalForm.maritalStatus = selectState;
             },
@@ -602,70 +613,6 @@ class OtherFormState extends State<OtherForm> {
         ));
   }
 
-  Widget dynamicVisibleDropDown(
-      bool error, String selectData, List<String> dataList, String hintText) {
-    return Visibility(
-      visible: (visiblePresent) ? false : true,
-      child: Padding(
-          //padding: const EdgeInsets.all(8.0),
-          padding: const EdgeInsets.only(
-              top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
-          child: Container(
-            height: 45,
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            decoration: BoxDecoration(
-              color: AppData.kPrimaryLightColor,
-              borderRadius: BorderRadius.circular(29),
-            ),
-            child: DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-              ),
-              value: selectData != '' ? selectData : null,
-              hint: Text(hintText),
-              onChanged: (value) {
-                setState(() => selectData = value);
-                //userPersonalForm.maritalStatus = selectState;
-              },
-              validator: (value) {
-                if (value == null) {
-                  // maritalError = true;
-                  selectData == '' ? error = true : error = false;
-                  return null;
-                } else {
-                  error = false;
-                  return null;
-                }
-              },
-              items: dataList.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          )),
-    );
-  }
+
 }
-//
-//class SignaturePainter extends CustomPainter {
-//  SignaturePainter(this.points);
-//
-//  final List<Offset> points;
-//
-//  void paint(Canvas canvas, Size size) {
-//    Paint paint = new Paint()
-//      ..color = Colors.black
-//      ..strokeCap = StrokeCap.round
-//      ..strokeWidth = 5.0;
-//    for (int i = 0; i < points.length - 1; i++) {
-//      if (points[i] != null && points[i + 1] != null)
-//        canvas.drawLine(points[i], points[i + 1], paint);
-//    }
-//  }
-//
-//  bool shouldRepaint(SignaturePainter other) => other.points != points;
-//}
+

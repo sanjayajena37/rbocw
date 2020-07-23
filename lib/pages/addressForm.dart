@@ -22,12 +22,16 @@ class AddressForm extends StatefulWidget {
 
 class AddressFormState extends State<AddressForm> {
   final _formKey1 = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _autovalidate = false;
   SharedPref sharedPref = SharedPref();
   AddressShareModel _addModel = AddressShareModel();
   bool villageError = false;
+  bool villageError1 = false;
   bool streatError = false;
+  bool streatError1 = false;
   bool postOfcError = false;
+  bool postOfcError1 = false;
 
   bool visiblePresent = false;
   bool outOfstate = false;
@@ -57,6 +61,7 @@ class AddressFormState extends State<AddressForm> {
   ];
   bool panchayatError = false;
   String selectPanchayat = "";
+
   bool panchayatError1 = false;
   String selectPanchayat1 = "";
 
@@ -69,148 +74,178 @@ class AddressFormState extends State<AddressForm> {
 
   bool villageDError = false;
   String selectVillageD = "";
+
   bool villageDError1 = false;
   String selectVillageD1 = "";
 
   TextEditingController _village = new TextEditingController();
-  TextEditingController _villageP = new TextEditingController();
   TextEditingController _street = new TextEditingController();
-  TextEditingController _streetP = new TextEditingController();
   TextEditingController _office = new TextEditingController();
+
+  TextEditingController _streetP = new TextEditingController();
+  TextEditingController _villageP = new TextEditingController();
   TextEditingController _officeP = new TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setAddressFormData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(5),
-      children: <Widget>[
-        Form(
-          key: _formKey1,
-          autovalidate: _autovalidate,
-          child: Column(
-            children: <Widget>[
-              /////////////Present Address
-              Align(
-                child: Text(
-                  "Present Address",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 24.0,
-                      color: Colors.black),
+    return Scaffold(
+      key: _scaffoldKey,
+      body: ListView(
+        padding: EdgeInsets.all(5),
+        children: <Widget>[
+          Form(
+            key: _formKey1,
+            autovalidate: _autovalidate,
+            child: Column(
+              children: <Widget>[
+                /////////////Present Address
+                Align(
+                  child: Text(
+                    "Present Address",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 24.0,
+                        color: Colors.black),
+                  ),
+                  alignment: Alignment.topLeft,
                 ),
-                alignment: Alignment.topLeft,
-              ),
 
-              ///////Village/Town
-              // inputFieldContainer(reuseTextField("Village/Town", villageError)),
-              villageError
-                  ? errorMsg("Please enter village/town")
-                  : Container(),
+                ///////Village/Town
+                inputFieldContainer(reuseTextField(
+                    "Village/Town", villageError, "Village", _village)),
+                villageError
+                    ? errorMsg("Please enter village/town")
+                    : Container(),
 
-              ///////Street
-              // inputFieldContainer(reuseTextField("Street", streatError)),
-              villageError ? errorMsg("Please enter Street") : Container(),
+                ///////Street
+                inputFieldContainer(
+                    reuseTextField("Street", streatError, "Street", _street)),
+                streatError ? errorMsg("Please enter Street") : Container(),
 
-              ///////Post office
-              // inputFieldContainer(reuseTextField("Post Office", postOfcError)),
-              villageError ? errorMsg("Please enter Post Office") : Container(),
+                ///////Post office
+                inputFieldContainer(reuseTextField(
+                    "Post Office", postOfcError, "postOfc", _office)),
+                postOfcError
+                    ? errorMsg("Please enter Post Office")
+                    : Container(),
 
-              //////State
-              dynamicDropDown(
-                  stateError, selectState, statesList, "Select State"),
-              districtError ? errorMsg("Please select state") : Container(),
+                //////State
+                dynamicDropDown(stateError, selectState, statesList,
+                    "Select State", "state"),
+                stateError ? errorMsg("Please select state") : Container(),
 
-              //////District
-              dynamicDropDown(districtError, selectDistrict, districtList,
-                  "Select District"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////District
+                dynamicDropDown(districtError, selectDistrict, districtList,
+                    "Select District", "district"),
+                districtError
+                    ? errorMsg("Please select district")
+                    : Container(),
 
-              //////Block
-              dynamicDropDown(
-                  blockError, selectBlock, blockList, "Select Block"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////Block
+                dynamicDropDown(blockError, selectBlock, blockList,
+                    "Select Block", "block"),
+                blockError ? errorMsg("Please select district") : Container(),
 
-              //////Panchyat
-              dynamicDropDown(panchayatError, selectPanchayat, panchayatList,
-                  "Select Panchayat"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////Panchyat
+                dynamicDropDown(panchayatError, selectPanchayat, panchayatList,
+                    "Select Panchayat", "panchayat"),
+                panchayatError
+                    ? errorMsg("Please select district")
+                    : Container(),
 
-              //////Village
-              dynamicDropDown(
-                  villageDError, selectVillageD, villageList, "Select Village"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////Village
+                dynamicDropDown(villageDError, selectVillageD, villageList,
+                    "Select Village", "village"),
+                villageDError
+                    ? errorMsg("Please select district")
+                    : Container(),
 
-              SizedBox(
-                height: 20.0,
-              ),
-              /////////////Permanent Address
-              Align(
-                child: Text(
-                  "Permanent Address",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 24.0,
-                      color: Colors.black),
+                SizedBox(
+                  height: 20.0,
                 ),
-                alignment: Alignment.topLeft,
-              ),
+                /////////////Permanent Address
+                Align(
+                  child: Text(
+                    "Permanent Address",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 24.0,
+                        color: Colors.black),
+                  ),
+                  alignment: Alignment.topLeft,
+                ),
 
 //              SwitchButton("If beneficiary is out of state? ",outOfstate),
 //              SwitchButton("If same as present address click yes? ",visiblePresent),
-              outStateSwitchButton(),
-              presentAddSwitchButton(),
+                outStateSwitchButton(),
+                presentAddSwitchButton(),
 
-              ///////Village/Town
-              // inputFieldContainerVisiblity(
-              //     reuseTextField("Village/Town", villageError)),
-              villageError
-                  ? errorMsg("Please enter permanent village/town")
-                  : Container(),
+                ///////Village/Town
+                inputFieldContainerVisiblity(reuseTextField(
+                    "Village/Town", villageError1, "pVillage", _villageP)),
+                villageError1
+                    ? errorMsg("Please enter permanent village/town")
+                    : Container(),
 
-              ///////Street
-              // inputFieldContainerVisiblity(
-              //     reuseTextField("Street", streatError)),
-              villageError
-                  ? errorMsg("Please enter permanent Street")
-                  : Container(),
+                ///////Street
+                inputFieldContainerVisiblity(reuseTextField(
+                    "Street", streatError1, "pStreet", _streetP)),
 
-              ///////Post office
-              // inputFieldContainerVisiblity(
-              //     reuseTextField("Post Office", postOfcError)),
-              villageError
-                  ? errorMsg("Please enter permanent Post Office")
-                  : Container(),
+                streatError1
+                    ? errorMsg("Please enter permanent Street")
+                    : Container(),
 
-              //////State
-              dynamicVisibleDropDown(
-                  stateError1, selectState1, statesList, "Select State"),
-              districtError ? errorMsg("Please select state") : Container(),
+                ///////Post office
+                inputFieldContainerVisiblity(reuseTextField(
+                    "Post Office", postOfcError1, "pPofc", _officeP)),
+                postOfcError1
+                    ? errorMsg("Please enter permanent Post Office")
+                    : Container(),
 
-              //////District
-              dynamicVisibleDropDown(districtError1, selectDistrict1,
-                  districtList, "Select District"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////State
+                dynamicVisibleDropDown(stateError1, selectState1, statesList,
+                    "Select State", "state"),
+                stateError1 ? errorMsg("Please select state") : Container(),
 
-              //////Block
-              dynamicVisibleDropDown(
-                  blockError1, selectBlock1, blockList, "Select Block"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////District
+                dynamicVisibleDropDown(districtError1, selectDistrict1,
+                    districtList, "Select District", "district"),
+                districtError1
+                    ? errorMsg("Please select district")
+                    : Container(),
 
-              //////Panchyat
-              dynamicVisibleDropDown(panchayatError1, selectPanchayat1,
-                  panchayatList, "Select Panchayat"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////Block
+                dynamicVisibleDropDown(blockError1, selectBlock1, blockList,
+                    "Select Block", "block"),
+                blockError1 ? errorMsg("Please select district") : Container(),
 
-              //////Village
-              dynamicVisibleDropDown(villageDError1, selectVillageD1,
-                  villageList, "Select Village"),
-              districtError ? errorMsg("Please select district") : Container(),
+                //////Panchyat
+                dynamicVisibleDropDown(panchayatError1, selectPanchayat1,
+                    panchayatList, "Select Panchayat", "panchayat"),
+                panchayatError1
+                    ? errorMsg("Please select district")
+                    : Container(),
 
-              continueButton()
-            ],
-          ),
-        )
-      ],
+                //////Village
+                dynamicVisibleDropDown(villageDError1, selectVillageD1,
+                    villageList, "Select Village", "village"),
+                villageDError1
+                    ? errorMsg("Please select district")
+                    : Container(),
+
+                continueButton()
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -242,6 +277,7 @@ class AddressFormState extends State<AddressForm> {
                 setState(() {
                   outOfstate = valuePress;
                 });
+                _addModel.isOutOfState = valuePress;
               },
             ),
           ),
@@ -250,30 +286,29 @@ class AddressFormState extends State<AddressForm> {
     );
   }
 
-  setPersonalFormData() async {
-    var personalForm = await sharedPref.getKey("userForm");
+  setAddressFormData() async {
+    var addressForm = await sharedPref.getKey("addressForm");
 
-    if (personalForm != null) {
-      print("userPersonalForm" + personalForm.toString());
-      UserPersonalFormModel userPersonalForm =
-          UserPersonalFormModel.fromJson(await sharedPref.read("userForm"));
-      if (userPersonalForm.member != null) {
-        for (var i = 0; i < userPersonalForm.member.length; i++) {
-          print("userPersonalForm.member>>>>>>>>" +
-              userPersonalForm.member.toString());
-        }
-      }
+    if (addressForm != null) {
+      print("Address Form" + addressForm.toString());
+      AddressShareModel shareModel =
+          AddressShareModel.fromJson(await sharedPref.read("addressForm"));
+//      if (userPersonalForm.member != null) {
+//        for (var i = 0; i < userPersonalForm.member.length; i++) {
+//          print("userPersonalForm.member>>>>>>>>" +
+//              userPersonalForm.member.toString());
+//        }
+//      }
 
       setState(() {
-//        _firstName.text = userPersonalForm.firstName;
-//        _lastname.text = userPersonalForm.lastName;
-//        _date.text = userPersonalForm.dob;
-//        _fatherName.text = userPersonalForm.fatherName;
-//        _aadharNumber.text = userPersonalForm.aadharNo;
-//        _phoneNumber.text = userPersonalForm.phoneNumber;
-//        selectedAgeProof = userPersonalForm.ageProof;
-//        selectedSex = userPersonalForm.sex;
-//        selectedMaritalStatus = userPersonalForm.maritalStatus;
+        _village.text = shareModel.presentVillage;
+        _street.text = shareModel.presentStreet;
+        _office.text = shareModel.presentPostOfc;
+        selectState = shareModel.presentState;
+        selectDistrict = shareModel.presentDistrict;
+        selectBlock = shareModel.presentBlock;
+        selectPanchayat = shareModel.presentPanchayat;
+        selectVillageD = shareModel.presentVillageDrop;
       });
     } else {
       print("data not save yet!");
@@ -310,6 +345,7 @@ class AddressFormState extends State<AddressForm> {
                 setState(() {
                   visiblePresent = valuePress;
                 });
+                _addModel.isPermanentPresentSame = valuePress;
               },
             ),
           ),
@@ -366,9 +402,10 @@ class AddressFormState extends State<AddressForm> {
     );
   }
 
-  TextFormField reuseTextField(String hint, bool error, AddressShareModel add) {
+  TextFormField reuseTextField(String hint, bool error, String comeFrom,
+      TextEditingController controller) {
     return TextFormField(
-      //controller: _firstName,
+      controller: controller,
       enabled: widget.isConfirmPage ? false : true,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
@@ -392,7 +429,27 @@ class AddressFormState extends State<AddressForm> {
         // return null;
       },
       onSaved: (value) {
-        // _addModel.names = value;
+        //_addModel.names = value;
+        switch (comeFrom) {
+          case "Village":
+            _addModel.presentVillage = value;
+            break;
+          case "Street":
+            _addModel.presentStreet = value;
+            break;
+          case "postOfc":
+            _addModel.presentPostOfc = value;
+            break;
+          case "pVillage":
+            _addModel.permanentVillage = value;
+            break;
+          case "pStreet":
+            _addModel.permanentStreet = value;
+            break;
+          case "pPofc":
+            _addModel.permanentPostOfc = value;
+            break;
+        }
       },
     );
   }
@@ -414,29 +471,29 @@ class AddressFormState extends State<AddressForm> {
         ),
         onTap: () {
           // setState(() {});
-          addressFormvalidate();
+          addressFormValidate();
         },
       ),
     );
   }
 
-  addressFormvalidate() {
-    _formKey1.currentState.validate();
-    print("address validation call" + villageError.toString());
-    if (!villageError) {
-      _formKey1.currentState.save();
-      widget.updateTab(1, true);
-      return true;
-    } else {
-      setState(() {
-        _autovalidate = true; //enable realtime validation
-      });
-      return false;
-    }
-  }
+//  addressFormvalidate() {
+//    _formKey1.currentState.validate();
+//    print("address validation call" + villageError.toString());
+//    if (!villageError) {
+//      _formKey1.currentState.save();
+//      widget.updateTab(1, true);
+//      return true;
+//    } else {
+//      setState(() {
+//        _autovalidate = true; //enable realtime validation
+//      });
+//      return false;
+//    }
+//  }
 
-  Widget dynamicDropDown(
-      bool error, String selectData, List<String> dataList, String hintText) {
+  Widget dynamicDropDown(bool error, String selectData, List<String> dataList,
+      String hintText, String callFor) {
     return Padding(
         //padding: const EdgeInsets.all(8.0),
         padding:
@@ -460,6 +517,23 @@ class AddressFormState extends State<AddressForm> {
             onChanged: (value) {
               setState(() => selectData = value);
               //userPersonalForm.maritalStatus = selectState;
+              switch (callFor) {
+                case "state":
+                  _addModel.presentState = value;
+                  break;
+                case "district":
+                  _addModel.presentDistrict = value;
+                  break;
+                case "block":
+                  _addModel.presentBlock = value;
+                  break;
+                case "panchayat":
+                  _addModel.presentPanchayat = value;
+                  break;
+                case "village":
+                  _addModel.presentVillageDrop = value;
+                  break;
+              }
             },
             validator: (value) {
               if (value == null) {
@@ -481,8 +555,8 @@ class AddressFormState extends State<AddressForm> {
         ));
   }
 
-  Widget dynamicVisibleDropDown(
-      bool error, String selectData, List<String> dataList, String hintText) {
+  Widget dynamicVisibleDropDown(bool error, String selectData,
+      List<String> dataList, String hintText, String callFor) {
     return Visibility(
       visible: (visiblePresent) ? false : true,
       child: Padding(
@@ -507,6 +581,23 @@ class AddressFormState extends State<AddressForm> {
               onChanged: (value) {
                 setState(() => selectData = value);
                 //userPersonalForm.maritalStatus = selectState;
+                switch (callFor) {
+                  case "state":
+                    _addModel.permanentState = value;
+                    break;
+                  case "district":
+                    _addModel.permanentDistrict = value;
+                    break;
+                  case "block":
+                    _addModel.permanentBlock = value;
+                    break;
+                  case "panchayat":
+                    _addModel.permanentPanchayat = value;
+                    break;
+                  case "village":
+                    _addModel.permanentVillageDrop = value;
+                    break;
+                }
               },
               validator: (value) {
                 if (value == null) {
@@ -527,5 +618,102 @@ class AddressFormState extends State<AddressForm> {
             ),
           )),
     );
+  }
+
+  addressFormValidate() async {
+    _formKey1.currentState.validate();
+    //print("sex>>>>" + selectedSex.toString());
+
+//    if (selectVillageD != '') {
+//      userPersonalForm.sex = selectedSex;
+//    }
+//    if (selectedAgeProof != '') {
+//      userPersonalForm.ageProof = selectedAgeProof;
+//    }
+//    if (selectedMaritalStatus != '') {
+//      userPersonalForm.maritalStatus = selectedMaritalStatus;
+//    }
+    // if (_formKey.currentState.validate()) {
+    if (!villageError &&
+        !streatError &&
+        !postOfcError &&
+        !stateError &&
+        !districtError &&
+        !blockError &&
+        !panchayatError &&
+        !villageDError &&
+        !villageDError1 &&
+        !panchayatError1 &&
+        !blockError1 &&
+        !districtError1 &&
+        !streatError1 &&
+        !postOfcError1 &&
+        !stateError1 &&
+        !villageError1) {
+      //form is valid, proceed further
+      _formKey1.currentState.save();
+      sharedPref.save("addressForm",
+          _addModel); //save once fields are valid, onSaved method invoked for every form fields
+      // return true;
+
+      print("Address>>>>>" + _addModel.toString());
+      widget.updateTab(0, true);
+    } else {
+//      setState(() {
+//        _autovalidate = true; //enable realtime validation
+//      });
+      if (villageError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please enter village ")));
+      } else if (streatError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please enter Street")));
+      } else if (postOfcError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please enter Post Office")));
+      } else if (stateError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please Select State")));
+      } else if (districtError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please Select District")));
+      } else if (blockError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please Select Block")));
+      } else if (panchayatError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please Select Block")));
+      } else if (villageDError) {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(content: new Text("Please Select Village Drop Down")));
+      } else if (visiblePresent) {
+        if (villageError1) {
+          _scaffoldKey.currentState.showSnackBar(new SnackBar(
+              content: new Text("Please enter Permanent Village ")));
+        } else if (streatError1) {
+          _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(content: new Text("Please enter Permanent Street")));
+        } else if (postOfcError1) {
+          _scaffoldKey.currentState.showSnackBar(new SnackBar(
+              content: new Text("Please enter Permanent Post-office")));
+        } else if (stateError1) {
+          _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(content: new Text("Please Select State")));
+        } else if (districtError1) {
+          _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(content: new Text("Please Select State")));
+        } else if (blockError1) {
+          _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(content: new Text("Please Select State")));
+        } else if (panchayatError1) {
+          _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(content: new Text("Please Select State")));
+        } else if (villageDError1) {
+          _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(content: new Text("Please Select State")));
+        }
+      }
+      // return false;
+    }
   }
 }

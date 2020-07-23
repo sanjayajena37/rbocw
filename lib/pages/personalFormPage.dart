@@ -726,7 +726,7 @@ class PersonalFormState extends State<PersonalForm> {
         ),
       ),
       onTap: () {
-        setState(() {});
+        //setState(() {});
         personalFormValidate();
       },
     );
