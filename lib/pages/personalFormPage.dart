@@ -413,7 +413,7 @@ class PersonalFormState extends State<PersonalForm> {
                   borderSide: BorderSide(color: Colors.white)),
             ),
             value: selectedSex != '' ? selectedSex : null,
-            disabledHint: Text(selectedSex != '' ? selectedSex : null),
+            // disabledHint: Text(selectedSex != '' ? selectedSex : null),
             hint: Text("Select"),
             onChanged: widget.isConfirmPage
                 ? null
@@ -459,8 +459,8 @@ class PersonalFormState extends State<PersonalForm> {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white))),
             value: selectedMaritalStatus != '' ? selectedMaritalStatus : null,
-            disabledHint: Text(
-                selectedMaritalStatus != '' ? selectedMaritalStatus : null),
+            // disabledHint: Text(
+            //     selectedMaritalStatus != '' ? selectedMaritalStatus : null),
             hint: Text("Select Marital Status"),
             onChanged: widget.isConfirmPage
                 ? null
@@ -509,7 +509,7 @@ class PersonalFormState extends State<PersonalForm> {
             value: selectedAgeProof != '' ? selectedAgeProof : null,
             //disabledHint: Text(selectedAgeProof != '' ? selectedAgeProof : null),
             hint: Text("Select age proof type"),
-            onChanged: /*widget.isConfirmPage?null:*/(value) {
+            onChanged: /*widget.isConfirmPage?null:*/ (value) {
               setState(() => selectedAgeProof = value);
               userPersonalForm.ageProof = selectedAgeProof;
             },
@@ -537,7 +537,7 @@ class PersonalFormState extends State<PersonalForm> {
 
   TextFormField fatherName() {
     return TextFormField(
-      enabled: widget.isConfirmPage?false:true,
+      enabled: widget.isConfirmPage ? false : true,
       controller: _fatherName,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
@@ -604,7 +604,7 @@ class PersonalFormState extends State<PersonalForm> {
             ),
             new Expanded(
               child: TextFormField(
-                enabled: widget.isConfirmPage?false:true,
+                enabled: widget.isConfirmPage ? false : true,
                 controller: _phoneNumber,
                 cursorColor: AppData.kPrimaryColor,
                 textInputAction: TextInputAction.next,
@@ -638,7 +638,7 @@ class PersonalFormState extends State<PersonalForm> {
 
   TextFormField aadharNumber() {
     return TextFormField(
-      enabled: widget.isConfirmPage?false:true,
+      enabled: widget.isConfirmPage ? false : true,
       controller: _aadharNumber,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
@@ -668,7 +668,7 @@ class PersonalFormState extends State<PersonalForm> {
       //padding: const EdgeInsets.symmetric(horizontal: 8),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: GestureDetector(
-        onTap: () =>widget.isConfirmPage?null:_selectDate(context),
+        onTap: () => widget.isConfirmPage ? null : _selectDate(context),
         child: AbsorbPointer(
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 10),
@@ -680,7 +680,7 @@ class PersonalFormState extends State<PersonalForm> {
               borderRadius: BorderRadius.circular(29),
             ),
             child: TextFormField(
-              enabled: !widget.isConfirmPage?false:true,
+              enabled: !widget.isConfirmPage ? false : true,
               controller: _date,
               keyboardType: TextInputType.datetime,
               onSaved: (value) {

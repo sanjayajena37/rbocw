@@ -13,7 +13,8 @@ class AddressForm extends StatefulWidget {
 
   bool isConfirmPage;
 
-  AddressForm({Key key, @required this.updateTab,this.isConfirmPage}) : super(key: key);
+  AddressForm({Key key, @required this.updateTab, this.isConfirmPage})
+      : super(key: key);
 
   @override
   AddressFormState createState() => AddressFormState();
@@ -23,7 +24,7 @@ class AddressFormState extends State<AddressForm> {
   final _formKey1 = GlobalKey<FormState>();
   bool _autovalidate = false;
   SharedPref sharedPref = SharedPref();
-  AddressShareModel _addModel=  AddressShareModel();
+  AddressShareModel _addModel = AddressShareModel();
   bool villageError = false;
   bool streatError = false;
   bool postOfcError = false;
@@ -78,8 +79,6 @@ class AddressFormState extends State<AddressForm> {
   TextEditingController _office = new TextEditingController();
   TextEditingController _officeP = new TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -103,17 +102,17 @@ class AddressFormState extends State<AddressForm> {
               ),
 
               ///////Village/Town
-              inputFieldContainer(reuseTextField("Village/Town", villageError)),
+              // inputFieldContainer(reuseTextField("Village/Town", villageError)),
               villageError
                   ? errorMsg("Please enter village/town")
                   : Container(),
 
               ///////Street
-              inputFieldContainer(reuseTextField("Street", streatError)),
+              // inputFieldContainer(reuseTextField("Street", streatError)),
               villageError ? errorMsg("Please enter Street") : Container(),
 
               ///////Post office
-              inputFieldContainer(reuseTextField("Post Office", postOfcError)),
+              // inputFieldContainer(reuseTextField("Post Office", postOfcError)),
               villageError ? errorMsg("Please enter Post Office") : Container(),
 
               //////State
@@ -162,22 +161,22 @@ class AddressFormState extends State<AddressForm> {
               presentAddSwitchButton(),
 
               ///////Village/Town
-              inputFieldContainerVisiblity(
-                  reuseTextField("Village/Town", villageError)),
+              // inputFieldContainerVisiblity(
+              //     reuseTextField("Village/Town", villageError)),
               villageError
                   ? errorMsg("Please enter permanent village/town")
                   : Container(),
 
               ///////Street
-              inputFieldContainerVisiblity(
-                  reuseTextField("Street", streatError)),
+              // inputFieldContainerVisiblity(
+              //     reuseTextField("Street", streatError)),
               villageError
                   ? errorMsg("Please enter permanent Street")
                   : Container(),
 
               ///////Post office
-              inputFieldContainerVisiblity(
-                  reuseTextField("Post Office", postOfcError)),
+              // inputFieldContainerVisiblity(
+              //     reuseTextField("Post Office", postOfcError)),
               villageError
                   ? errorMsg("Please enter permanent Post Office")
                   : Container(),
@@ -226,11 +225,11 @@ class AddressFormState extends State<AddressForm> {
               child: Text(
                 "If beneficiary is out of state?",
                 style: TextStyle(
-                 // fontSize: 18.0,
-                ),
+                    // fontSize: 18.0,
+                    ),
               )),
           Padding(
-            padding: const EdgeInsets.only(right:8.0),
+            padding: const EdgeInsets.only(right: 8.0),
             child: FlutterSwitch(
               height: 28.0,
               width: 45.0,
@@ -251,14 +250,13 @@ class AddressFormState extends State<AddressForm> {
     );
   }
 
-
   setPersonalFormData() async {
     var personalForm = await sharedPref.getKey("userForm");
 
     if (personalForm != null) {
       print("userPersonalForm" + personalForm.toString());
       UserPersonalFormModel userPersonalForm =
-      UserPersonalFormModel.fromJson(await sharedPref.read("userForm"));
+          UserPersonalFormModel.fromJson(await sharedPref.read("userForm"));
       if (userPersonalForm.member != null) {
         for (var i = 0; i < userPersonalForm.member.length; i++) {
           print("userPersonalForm.member>>>>>>>>" +
@@ -293,12 +291,12 @@ class AddressFormState extends State<AddressForm> {
                 child: Text(
                   "If same as present address click yes? ",
                   style: TextStyle(
-                  //  fontSize: 18.0,
-                  ),
+                      //  fontSize: 18.0,
+                      ),
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.only(right:8.0),
+            padding: const EdgeInsets.only(right: 8.0),
             child: FlutterSwitch(
               height: 28.0,
               width: 45.0,
@@ -368,10 +366,10 @@ class AddressFormState extends State<AddressForm> {
     );
   }
 
-  TextFormField reuseTextField(String hint, bool error,AddressShareModel add) {
+  TextFormField reuseTextField(String hint, bool error, AddressShareModel add) {
     return TextFormField(
       //controller: _firstName,
-      enabled: widget.isConfirmPage?false:true,
+      enabled: widget.isConfirmPage ? false : true,
       cursorColor: AppData.kPrimaryColor,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.text,
@@ -394,7 +392,7 @@ class AddressFormState extends State<AddressForm> {
         // return null;
       },
       onSaved: (value) {
-        _addModel.names = value;
+        // _addModel.names = value;
       },
     );
   }

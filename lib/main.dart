@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.green,
             ),
             //home: NewUserRegister(model: _model),
-             home: HomePage(model: _model),
+            home: HomePage(model: _model),
             // home: RegisterPage(model: _model),
           );
         }));

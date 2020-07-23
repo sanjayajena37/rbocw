@@ -120,7 +120,10 @@ class _NewUserRegisterState extends State<NewUserRegister>
                         updateTab: updateTab,
                         isConfirmPage: false,
                       ),
-                      AddressForm(updateTab: updateTab,isConfirmPage: false,),
+                      AddressForm(
+                        updateTab: updateTab,
+                        isConfirmPage: false,
+                      ),
                       // Icon(Icons.directions_bike),
                       //
                       WorkExperienceForm(updateTab: updateTab),

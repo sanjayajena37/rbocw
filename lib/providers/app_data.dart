@@ -59,6 +59,18 @@ class AppData {
         fontSize: 15.0, color: Colors.grey[400], fontWeight: FontWeight.w400);
   }
 
+  static showToastMessage(String message, Color color) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIos: 2,
+      backgroundColor: color,
+      textColor: Colors.white,
+      fontSize: 15.0,
+    );
+  }
+
   static void showInternetError(
       BuildContext context, Function closeApp, Function retryInternet) {
     showDialog(
