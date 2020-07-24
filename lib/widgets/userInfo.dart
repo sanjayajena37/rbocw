@@ -34,14 +34,34 @@ class UserInfo extends StatelessWidget {
                           ListTile(
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
-                            leading: Icon(Icons.my_location),
-                            title: Text("Location"),
-                            subtitle: Text("Kathmandu"),
+                            leading: Icon(Icons.contact_mail),
+                            title: Text("First Name"),
+                            subtitle: Text("Sanjaya"),
                           ),
                           ListTile(
-                            leading: Icon(Icons.email),
-                            title: Text("Email"),
-                            subtitle: Text("sudeptech@gmail.com"),
+                            leading: Icon(Icons.contact_mail),
+                            title: Text("Last Name"),
+                            subtitle: Text("Jena"),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.assignment_ind),
+                            title: Text("Gender"),
+                            subtitle: Text("Male"),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.fiber_smart_record),
+                            title: Text("Maritial Status"),
+                            subtitle: Text("Non-Married"),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.person),
+                            title: Text("Father Name"),
+                            subtitle: Text("S. Jena"),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.date_range),
+                            title: Text("Date of birth"),
+                            subtitle: Text("15th May 1997"),
                           ),
                           ListTile(
                             leading: Icon(Icons.phone),
@@ -49,10 +69,9 @@ class UserInfo extends StatelessWidget {
                             subtitle: Text("99--99876-56"),
                           ),
                           ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("About Me"),
-                            subtitle: Text(
-                                "This is a about me link and you can khow about me in this section."),
+                            leading: Icon(Icons.keyboard_hide),
+                            title: Text("Adhar Number"),
+                            subtitle: Text("1234-5678-9012"),
                           ),
                         ],
                       ),

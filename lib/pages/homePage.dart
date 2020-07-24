@@ -7,6 +7,7 @@ import 'package:rbocw/pages/setting.dart';
 import 'package:rbocw/scoped-model/main.dart';
 
 import '../providers/app_data.dart';
+import 'EditUserRegister.dart';
 import 'benificiary.dart';
 import 'dashboardPage.dart';
 import 'newUserRegister.dart';
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
               BenificiaryPage(),
               ProfilePage(),
               //SettingPage()
-              NewUserRegister()
+              EditUserRegister()
             ],
             onPageChanged: (page) {},
           ),

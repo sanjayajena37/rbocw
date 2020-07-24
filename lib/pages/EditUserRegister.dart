@@ -11,24 +11,25 @@ import 'package:rbocw/pages/workExperience.dart';
 
 import '../providers/app_data.dart';
 
-class ConfirmPages extends StatefulWidget {
+class EditUserRegister extends StatefulWidget {
   final MainModel model;
 
-  const ConfirmPages({
+  const EditUserRegister({
     Key key,
     this.model,
   }) : super(key: key);
 
   @override
-  _ConfirmPagesState createState() => _ConfirmPagesState();
+  _EditUserRegisterState createState() => _EditUserRegisterState();
 }
 
-class _ConfirmPagesState extends State<ConfirmPages>
+class _EditUserRegisterState extends State<EditUserRegister>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   int _selectedTab = 0;
-  List<String> _isDisabled = ["false", "true", "true", "true"];
+  //List<String> _isDisabled = ["false", "true", "true", "true"];
+  List<String> _isDisabled = ["false", "false", "false", "false"];
   SharedPref sharedPref = SharedPref();
   UserPersonalFormModel userPersonalForm = UserPersonalFormModel();
   @override
@@ -75,7 +76,9 @@ class _ConfirmPagesState extends State<ConfirmPages>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Step 3/3: Confirmation"),
+        //title: Text("Step 1/3: Register"),
+        automaticallyImplyLeading: false,
+        title: Text("Edit Registration"),
         backgroundColor: AppData.kPrimaryColor,
       ),
       backgroundColor: Colors.white,
@@ -118,14 +121,16 @@ class _ConfirmPagesState extends State<ConfirmPages>
                     children: [
                       PersonalForm(
                         updateTab: updateTab,
-                        isConfirmPage: true,
-                        isFromDash: true,
+                        isConfirmPage: false,
                       ),
-                      AddressForm(updateTab: updateTab,isConfirmPage: true,isFromDash: true,),
+                      AddressForm(
+                        updateTab: updateTab,
+                        isConfirmPage: false,
+                      ),
                       // Icon(Icons.directions_bike),
                       //
-                      WorkExperienceForm(updateTab: updateTab,isConfirmationPage: true,isFromDash: true,),
-                      OtherForm(updateTab: updateTab,isFromDash: true,isConfirmPage: true,)
+                      WorkExperienceForm(updateTab: updateTab),
+                      OtherForm(updateTab: updateTab,isConfirmPage: false,isFromDash: true,)
                       //Icon(Icons.directions_bike),
                     ],
                   ),

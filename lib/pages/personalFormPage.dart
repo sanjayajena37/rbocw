@@ -12,8 +12,9 @@ class PersonalForm extends StatefulWidget {
   final Function(int, bool) updateTab;
 
   bool isConfirmPage = false;
+  bool isFromDash = false;
 
-  PersonalForm({Key key, @required this.updateTab, this.isConfirmPage})
+  PersonalForm({Key key, @required this.updateTab, this.isConfirmPage,this.isFromDash,})
       : super(key: key);
 
   @override

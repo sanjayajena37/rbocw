@@ -5,6 +5,11 @@ import 'package:rbocw/scoped-model/main.dart';
 import 'package:rbocw/widgets/phone_number.dart';
 import 'package:rbocw/widgets/rounded_input_field.dart';
 
+import '../scoped-model/main.dart';
+import 'dashboardPage.dart';
+import 'homePage.dart';
+import 'newUserRegister.dart';
+
 class ExistingUser extends StatefulWidget {
   final MainModel model;
 
@@ -21,6 +26,7 @@ class _ExistingUserState extends State<ExistingUser> {
   bool _isExistinguser = false;
   DateTime selectedDate = DateTime.now();
   TextEditingController _date = new TextEditingController();
+   MainModel model= MainModel();
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +194,14 @@ class _ExistingUserState extends State<ExistingUser> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => HomePage(),
+                    ),
+                  );
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.0)),
                 child: Text("OK", style: TextStyle(color: Colors.white70)),
@@ -251,6 +264,12 @@ class _ExistingUserState extends State<ExistingUser> {
                   InkWell(
                     onTap: () {
                       print("click");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => NewUserRegister(),
+                        ),
+                      );
                     },
                     child: Container(
                       width: 120,

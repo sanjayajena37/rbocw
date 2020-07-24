@@ -36,6 +36,7 @@ class NomineePageState extends State<NomineePage> {
   bool ageProofError = false;
 
   List<String> sex = ['Male', "Female", "Other"];
+  List<String> name = ['Male', "Female", "Other"];
   String selectedSex = "";
   List<String> maritalStatus = ["Married", "Single"];
   String selectedMaritalStatus = "";

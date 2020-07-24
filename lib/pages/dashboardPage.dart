@@ -10,6 +10,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final TextStyle whiteText = TextStyle(color: Colors.white);
+
   int getColorHexFromStr(String colorStr) {
     colorStr = "FF" + colorStr;
     colorStr = colorStr.replaceAll("#", "");
@@ -35,6 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //appBar: AppBar(),
       body: ListView(
         children: <Widget>[
           Column(
@@ -42,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Stack(
                 children: <Widget>[
                   Container(
-                    height: 240.0,
+                    height: 110.0,
                     width: double.infinity,
                     color: AppData.kPrimaryColor,
                   ),
@@ -60,269 +62,297 @@ class _DashboardPageState extends State<DashboardPage> {
                             height: 75.0,
                             width: 75.0,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(37.5),
-                                border: Border.all(
-                                    color: Colors.white,
-                                    style: BorderStyle.solid,
-                                    width: 3.0),
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg"))),
+                              borderRadius: BorderRadius.circular(37.5),
+                              border: Border.all(
+                                  color: Colors.white,
+                                  style: BorderStyle.solid,
+                                  width: 3.0),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    "https://pbs.twimg.com/profile_images/1063849898934595585/UufjhYvz_400x400.jpg"),
+                              ),
+                            ),
                           ),
                           SizedBox(width: 10.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Pino',
+                                'Sanjaya',
                                 style: TextStyle(
                                     fontFamily: 'Quicksand',
-                                    fontSize: 25.0,
+                                    fontSize: 23.0,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                '176****590',
-                                style: TextStyle(
+                              SizedBox(
+                                height: 8.0,
+                              ),
+                              Text('RG12590',
+                                  style: TextStyle(
                                     fontFamily: 'Quicksand',
-                                    fontSize: 15.0,
+                                    fontSize: 13.0,
                                     color: Colors.white,
-                                )
-                                    //color: Colors.black.withOpacity(0.7)),
-                              )
+                                  )
+                                  //color: Colors.black.withOpacity(0.7)),
+                                  )
                             ],
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width - 225.0),
+                              width: MediaQuery.of(context).size.width - 240.0),
                           Container(
                             alignment: Alignment.topRight,
                             child: IconButton(
-                              icon: Icon(Icons.settings),
+                              icon: Icon(Icons.translate),
                               onPressed: () {},
                               color: Colors.white,
-                              iconSize: 30.0,
+                              iconSize: 25.0,
                             ),
                           ),
                           SizedBox(height: 15.0)
                         ],
                       ),
                       SizedBox(height: 10.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.folder_shared),
-                                  color: Colors.white,
-                                  iconSize: 40.0,
-                                  onPressed: () {},
-                                ),
-                                Text(
-                                  'Favorites',
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontSize: 15.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.account_balance_wallet),
-                                  color: Colors.white,
-                                  iconSize: 40.0,
-                                  onPressed: () {},
-                                ),
-                                Text(
-                                  'Wallet',
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontSize: 15.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.print),
-                                  color: Colors.white,
-                                  iconSize: 40.0,
-                                  onPressed: () {},
-                                ),
-                                Text(
-                                  'Footprint',
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontSize: 15.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.computer),
-                                  color: Colors.white,
-                                  iconSize: 40.0,
-                                  onPressed: () {},
-                                ),
-                                Text(
-                                  'Coupon',
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontSize: 15.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 25.0),
+//                      Row(
+//                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                        children: <Widget>[
+//                          Container(
+//                            child: Column(
+//                              children: <Widget>[
+//                                IconButton(
+//                                  icon: Icon(Icons.folder_shared),
+//                                  color: Colors.white,
+//                                  iconSize: 40.0,
+//                                  onPressed: () {},
+//                                ),
+//                                Text(
+//                                  'Favorites',
+//                                  style: TextStyle(
+//                                      fontFamily: 'Quicksand',
+//                                      fontSize: 15.0,
+//                                      color: Colors.white,
+//                                      fontWeight: FontWeight.bold),
+//                                )
+//                              ],
+//                            ),
+//                          ),
+//                          Container(
+//                            child: Column(
+//                              children: <Widget>[
+//                                IconButton(
+//                                  icon: Icon(Icons.account_balance_wallet),
+//                                  color: Colors.white,
+//                                  iconSize: 40.0,
+//                                  onPressed: () {},
+//                                ),
+//                                Text(
+//                                  'Wallet',
+//                                  style: TextStyle(
+//                                      fontFamily: 'Quicksand',
+//                                      fontSize: 15.0,
+//                                      color: Colors.white,
+//                                      fontWeight: FontWeight.bold),
+//                                )
+//                              ],
+//                            ),
+//                          ),
+//                          Container(
+//                            child: Column(
+//                              children: <Widget>[
+//                                IconButton(
+//                                  icon: Icon(Icons.print),
+//                                  color: Colors.white,
+//                                  iconSize: 40.0,
+//                                  onPressed: () {},
+//                                ),
+//                                Text(
+//                                  'Footprint',
+//                                  style: TextStyle(
+//                                      fontFamily: 'Quicksand',
+//                                      fontSize: 15.0,
+//                                      color: Colors.white,
+//                                      fontWeight: FontWeight.bold),
+//                                )
+//                              ],
+//                            ),
+//                          ),
+//                          Container(
+//                            child: Column(
+//                              children: <Widget>[
+//                                IconButton(
+//                                  icon: Icon(Icons.computer),
+//                                  color: Colors.white,
+//                                  iconSize: 40.0,
+//                                  onPressed: () {},
+//                                ),
+//                                Text(
+//                                  'Coupon',
+//                                  style: TextStyle(
+//                                      fontFamily: 'Quicksand',
+//                                      fontSize: 15.0,
+//                                      color: Colors.white,
+//                                      fontWeight: FontWeight.bold),
+//                                )
+//                              ],
+//                            ),
+//                          )
+//                        ],
+//                      ),
+                      SizedBox(height: 5.0),
                       // SizedBox(height: 25.0),
-                      Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              cardDetails('Pending payment',
-                                  'assets/images/payment.jpg', '5'),
-                              cardDetails('To be shipped',
-                                  'assets/images/shopping.jpg', '2'),
-                            ],
-                          ),
-                          // SizedBox(height: 10.0),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          //   children: <Widget>[
-                          //     cardDetails(
-                          //         'To be received', 'assets/trucks.png', '8'),
-                          //     cardDetails('Return / Replace',
-                          //         'assets/returnbox.png', '0'),
-                          //   ],
-                          // ),
-                          // SizedBox(height: 5.0)
-                        ],
-                      )
+//                      Column(
+//                        children: <Widget>[
+//                          Row(
+//                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                            children: <Widget>[
+//                              cardDetails('Pending payment',
+//                                  'assets/images/payment.jpg', ''),
+//                              cardDetails(
+//                                  'History', 'assets/images/shopping.jpg', ''),
+//                            ],
+//                          ),
+//                          // SizedBox(height: 10.0),
+//                          // Row(
+//                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                          //   children: <Widget>[
+//                          //     cardDetails(
+//                          //         'To be received', 'assets/trucks.png', '8'),
+//                          //     cardDetails('Return / Replace',
+//                          //         'assets/returnbox.png', '0'),
+//                          //   ],
+//                          // ),
+//                          // SizedBox(height: 5.0)
+//                        ],
+//                      ),
+//                      Padding(
+//                        padding: const EdgeInsets.only(left: 12.0, top: 12.0),
+//                        child: Text(
+//                          "ID Card",
+//                          textAlign: TextAlign.start,
+//                          style: TextStyle(
+//                              fontSize: 22.0,
+//                              fontWeight: FontWeight.w500,
+//                              color: Colors.black),
+//                        ),
+//                      ),
+//                      Padding(
+//                        padding: const EdgeInsets.only(
+//                            left: 20.0, right: 20.0, top: 20.0),
+//                        child: Image.asset(
+//                          "assets/images/id_card.jpg",
+//                          fit: BoxFit.fitWidth,
+//                          width: double.infinity,
+//                          //height: double.infinity,
+//                        ),
+//                      ),
                     ],
                   )
                 ],
               ),
               SizedBox(
-                height: 15.0,
+                height: 5.0,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Text(
-                      "Appointments",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
-                    ),
+//                  Padding(
+//                    padding: const EdgeInsets.only(left: 16.0),
+//                    child: Text(
+//                      "Details",
+//                      style: TextStyle(
+//                          fontWeight: FontWeight.bold, fontSize: 18.0),
+//                    ),
+//                  ),
+                  SizedBox(
+                    height: 10.0,
                   ),
-                  Card(
-                    elevation: 4.0,
-                    color: Colors.white,
-                    margin: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: ListTile(
-                            leading: Container(
-                              alignment: Alignment.bottomCenter,
-                              width: 45.0,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Container(
-                                    height: 20,
-                                    width: 8.0,
-                                    color: Colors.grey.shade300,
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Container(
-                                    height: 25,
-                                    width: 8.0,
-                                    color: Colors.grey.shade300,
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Container(
-                                    height: 40,
-                                    width: 8.0,
-                                    color: Colors.blue,
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Container(
-                                    height: 30,
-                                    width: 8.0,
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            title: Text("Today"),
-                            subtitle: Text("18 patients"),
-                          ),
-                        ),
-                        VerticalDivider(),
-                        Expanded(
-                          child: ListTile(
-                            leading: Container(
-                              alignment: Alignment.bottomCenter,
-                              width: 45.0,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Container(
-                                    height: 20,
-                                    width: 8.0,
-                                    color: Colors.grey.shade300,
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Container(
-                                    height: 25,
-                                    width: 8.0,
-                                    color: Colors.grey.shade300,
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Container(
-                                    height: 40,
-                                    width: 8.0,
-                                    color: Colors.red,
-                                  ),
-                                  const SizedBox(width: 4.0),
-                                  Container(
-                                    height: 30,
-                                    width: 8.0,
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            title: Text("Canceled"),
-                            subtitle: Text("7 patients"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+//                  Card(
+//                    elevation: 4.0,
+//                    color: Colors.white,
+//                    margin: const EdgeInsets.all(16.0),
+//                    child: Row(
+//                      children: <Widget>[
+//                        Expanded(
+//                          child: ListTile(
+//                            leading: Container(
+//                              alignment: Alignment.bottomCenter,
+//                              width: 45.0,
+//                              child: Row(
+//                                crossAxisAlignment: CrossAxisAlignment.end,
+//                                children: <Widget>[
+//                                  Container(
+//                                    height: 20,
+//                                    width: 8.0,
+//                                    color: Colors.grey.shade300,
+//                                  ),
+//                                  const SizedBox(width: 4.0),
+//                                  Container(
+//                                    height: 25,
+//                                    width: 8.0,
+//                                    color: Colors.grey.shade300,
+//                                  ),
+//                                  const SizedBox(width: 4.0),
+//                                  Container(
+//                                    height: 40,
+//                                    width: 8.0,
+//                                    color: Colors.blue,
+//                                  ),
+//                                  const SizedBox(width: 4.0),
+//                                  Container(
+//                                    height: 30,
+//                                    width: 8.0,
+//                                    color: Colors.grey.shade300,
+//                                  ),
+//                                ],
+//                              ),
+//                            ),
+//                            title: Text("Today"),
+//                            subtitle: Text("18 patients"),
+//                          ),
+//                        ),
+//                        VerticalDivider(),
+//                        Expanded(
+//                          child: ListTile(
+//                            leading: Container(
+//                              alignment: Alignment.bottomCenter,
+//                              width: 45.0,
+//                              child: Row(
+//                                crossAxisAlignment: CrossAxisAlignment.end,
+//                                children: <Widget>[
+//                                  Container(
+//                                    height: 20,
+//                                    width: 8.0,
+//                                    color: Colors.grey.shade300,
+//                                  ),
+//                                  const SizedBox(width: 4.0),
+//                                  Container(
+//                                    height: 25,
+//                                    width: 8.0,
+//                                    color: Colors.grey.shade300,
+//                                  ),
+//                                  const SizedBox(width: 4.0),
+//                                  Container(
+//                                    height: 40,
+//                                    width: 8.0,
+//                                    color: Colors.red,
+//                                  ),
+//                                  const SizedBox(width: 4.0),
+//                                  Container(
+//                                    height: 30,
+//                                    width: 8.0,
+//                                    color: Colors.grey.shade300,
+//                                  ),
+//                                ],
+//                              ),
+//                            ),
+//                            title: Text("Canceled"),
+//                            subtitle: Text("7 patients"),
+//                          ),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
@@ -331,18 +361,18 @@ class _DashboardPageState extends State<DashboardPage> {
                           flex: 2,
                           child: _buildTile(
                             color: Colors.pink,
-                            icon: Icons.portrait,
-                            title: "Number of Patient",
-                            data: "1200",
+                            icon: Icons.date_range,
+                            title: "Date of applied",
+                            data: "12/01/2019",
                           ),
                         ),
                         const SizedBox(width: 16.0),
                         Expanded(
                           child: _buildTile(
                             color: Colors.green,
-                            icon: Icons.portrait,
-                            title: "Admitted",
-                            data: "857",
+                            icon: Icons.date_range,
+                            title: "Date of Approved",
+                            data: "2/2/2019",
                           ),
                         ),
                       ],
@@ -356,27 +386,27 @@ class _DashboardPageState extends State<DashboardPage> {
                         Expanded(
                           child: _buildTile(
                             color: Colors.blue,
-                            icon: Icons.favorite,
-                            title: "Discharged",
-                            data: "864",
+                            icon: Icons.autorenew,
+                            title: "Renewal Date",
+                            data: "2/2/2020",
                           ),
                         ),
                         const SizedBox(width: 16.0),
                         Expanded(
                           child: _buildTile(
                             color: Colors.pink,
-                            icon: Icons.portrait,
-                            title: "Dropped",
-                            data: "857",
+                            icon: Icons.touch_app,
+                            title: "Benefits Applied",
+                            data: "5",
                           ),
                         ),
                         const SizedBox(width: 16.0),
                         Expanded(
                           child: _buildTile(
                             color: Colors.blue,
-                            icon: Icons.favorite,
-                            title: "Arrived",
-                            data: "698",
+                            icon: Icons.verified_user,
+                            title: "Approved Benefits",
+                            data: "2",
                           ),
                         ),
                       ],
@@ -385,14 +415,14 @@ class _DashboardPageState extends State<DashboardPage> {
                   const SizedBox(height: 20.0),
                 ],
               ),
-              SizedBox(height: 15.0),
-              listItem('Bank card', Color(getColorHexFromStr('#E89300')),
+              //SizedBox(height: 15.0),
+              listItem('ID Card', Color(getColorHexFromStr('#E89300')),
                   Icons.credit_card),
-              listItem('Replacement code', Color(getColorHexFromStr('#FB8662')),
-                  Icons.grid_on),
-              listItem('Consulting collection', Colors.blue, Icons.pages),
-              listItem('Customer service', Color(getColorHexFromStr('#ECB800')),
-                  Icons.person),
+              listItem('Renewal History', Color(getColorHexFromStr('#FB8662')),
+                  Icons.sync),
+              listItem('Benefits Applied List', Colors.blue, Icons.touch_app),
+              listItem('Benefits Approved List', Color(getColorHexFromStr('#ECB800')),
+                  Icons.verified_user),
             ],
           )
         ],
@@ -404,14 +434,14 @@ class _DashboardPageState extends State<DashboardPage> {
       {Color color, IconData icon, String title, String data}) {
     return Container(
       padding: const EdgeInsets.all(8.0),
-      height: 150.0,
+      height: 120.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         color: color,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Icon(
             icon,

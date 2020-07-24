@@ -5,6 +5,7 @@ import 'package:rbocw/pages/register.dart';
 import 'package:rbocw/pages/splash.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'pages/splash.dart';
 import 'scoped-model/main.dart';
 
 void main() => runApp(MyApp());
@@ -33,7 +34,7 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.green,
             ),
             //home: NewUserRegister(model: _model),
-            home: HomePage(model: _model),
+            home: SplashScreen(model: _model),
             // home: RegisterPage(model: _model),
           );
         }));

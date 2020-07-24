@@ -127,7 +127,7 @@ class _NewUserRegisterState extends State<NewUserRegister>
                       // Icon(Icons.directions_bike),
                       //
                       WorkExperienceForm(updateTab: updateTab),
-                      OtherForm(updateTab: updateTab)
+                      OtherForm(updateTab: updateTab,isConfirmPage: false,isFromDash: false,)
                       //Icon(Icons.directions_bike),
                     ],
                   ),

@@ -5,6 +5,8 @@ import 'package:rbocw/providers/SharedPref.dart';
 import 'package:rbocw/providers/app_data.dart';
 import 'package:rbocw/ui/addBeniModal.dart';
 
+import 'ConfirmPages.dart';
+
 class BenificiaryPage extends StatefulWidget {
   BenificiaryPage({Key key}) : super(key: key);
 
@@ -53,7 +55,8 @@ class _BenificiaryPageState extends State<BenificiaryPage> {
       appBar: AppBar(
         backgroundColor: AppData.kPrimaryColor,
         title: Text(
-          "Benificiary list",
+          //"Benificiary list",
+          "Step 2/3: Add Nominee",
         ),
       ),
       body: Container(
@@ -74,7 +77,9 @@ class _BenificiaryPageState extends State<BenificiaryPage> {
                         continueButton()
                       ],
                     ),
-                  )
+                  ),
+            nextButton(),
+
           ],
         ),
       ),
@@ -181,7 +186,7 @@ class _BenificiaryPageState extends State<BenificiaryPage> {
           ),
           DataColumn(
             label: Text(
-              "Share",
+              "Share(%)",
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
@@ -244,9 +249,12 @@ class _BenificiaryPageState extends State<BenificiaryPage> {
                         placeholder: false,
                       ),
                       DataCell(
-                        Text(data.share),
+                        Text(data.share,textAlign: TextAlign.center,),
                         showEditIcon: false,
                         placeholder: false,
+                        onTap: (){
+                          print("hey");
+                        }
                       ),
                       DataCell(
                         Row(
@@ -282,6 +290,38 @@ class _BenificiaryPageState extends State<BenificiaryPage> {
                 ))
             .values
             .toList());
+
+  }
+
+  Widget nextButton() {
+    return new InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          //builder: (BuildContext context) => NomineePage(),
+          builder: (BuildContext context) => ConfirmPages(),
+        ),
+      ),
+      child: Padding(
+        padding:
+        const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
+        child: new Container(
+          //width: 100.0,
+          height: 45.0,
+          decoration: new BoxDecoration(
+            color: AppData.kPrimaryColor,
+            //border: new Border.all(color: Colors.white, width: 2.0),
+            borderRadius: new BorderRadius.circular(17.0),
+          ),
+          child: new Center(
+            child: new Text(
+              'Next Step',
+              style: new TextStyle(fontSize: 18.0, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void _deleteBeni(int index) {

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rbocw/models/OtherFormModel.dart';
 import 'package:rbocw/pages/nominalPage.dart';
 import 'package:rbocw/providers/SharedPref.dart';
 import 'package:rbocw/providers/app_data.dart';
@@ -9,11 +10,16 @@ import 'dart:io';
 
 import '../providers/app_data.dart';
 import 'CustomSignature.dart';
+import 'benificiary.dart';
 
 class OtherForm extends StatefulWidget {
   final Function(int, bool) updateTab;
 
-  OtherForm({Key key, @required this.updateTab}) : super(key: key);
+  bool isFromDash=false;
+
+  bool isConfirmPage=false;
+
+  OtherForm({Key key, @required this.updateTab,this.isFromDash,this.isConfirmPage}) : super(key: key);
 
   @override
   OtherFormState createState() => OtherFormState();
@@ -32,6 +38,8 @@ class OtherFormState extends State<OtherForm> {
 
   File _imageSignature;
   File _imageCertificate;
+
+  OtherFormModel _otherFormModel = OtherFormModel();
 
 /////Switch erroe
   bool isMagnera = false;
@@ -106,8 +114,8 @@ class OtherFormState extends State<OtherForm> {
           child: Column(
             children: <Widget>[
               //////Nature Of Job
-              dynamicDropDown(
-                  nJobError, selectNJob, nJobList, "Select Nature of Job"),
+              dynamicDropDown(nJobError, selectNJob, nJobList,
+                  "Select Nature of Job", "job"),
               nJobError ? errorMsg("Please select Job Nature") : Container(),
 
               SizedBox(
@@ -121,29 +129,30 @@ class OtherFormState extends State<OtherForm> {
 
               //////Educational Qualification
               dynamicDropDown(qualifiedError, selectQualified, qualifiedList,
-                  "Select Educational Qualification"),
+                  "Select Educational Qualification", "qual"),
               qualifiedError
                   ? errorMsg("Please select Qualification")
                   : Container(),
 
               ///////BPL/Anadaya
               inputFieldContainer(
-                  reuseTextField("BPL/Antyodaya Card No", bplError)),
+                  reuseTextField("BPL/Antyodaya Card No", bplError, "bpl")),
               bplError ? errorMsg("Please enter BPL/Antyodaya") : Container(),
 
               ///////PF/ESI
               inputFieldContainer(
-                  reuseTextField("BPL/Antyodaya Card No If Any", pfError)),
+                  reuseTextField("ESI/PF If Any", pfError, "esi")),
               pfError ? errorMsg("Please enter PF/ESI No If Any") : Container(),
 
               //////SC/ST
-              dynamicDropDown(castError, selectCast, castList, "Select Cast"),
+              dynamicDropDown(
+                  castError, selectCast, castList, "Select Cast", "cast"),
               castError ? errorMsg("Please select Qualification") : Container(),
 
               SizedBox(
                 height: 15.0,
               ),
-              IsMinerSwitchButton(),
+              IsPhysicalMinerSwitchButton(),
               SizedBox(
                 height: 15.0,
               ),
@@ -153,23 +162,28 @@ class OtherFormState extends State<OtherForm> {
               ),
 
               //////Bank Name
-              dynamicDropDown(bankError, selectBank, bankList, "Select bank"),
-              bankError ? errorMsg("Please select Qualification") : Container(),
+              dynamicDropDown(
+                  bankError, selectBank, bankList, "Select bank", "bank"),
+              bankError ? errorMsg("Please select Bank ") : Container(),
 
-              ///////PF/ESI
-              inputFieldContainer(reuseTextField("Account Number", acError)),
+              ///////Account
+              inputFieldContainer(
+                  reuseTextField("Account Number", acError, "account")),
               acError
                   ? errorMsg("Please enter Account number")
                   : Container(), ///////PF/ESI
-              inputFieldContainer(reuseTextField("Branch Number", branchError)),
+              inputFieldContainer(
+                  reuseTextField("Branch Name", branchError, "branch")),
               branchError
                   ? errorMsg("Please enter Branch name")
                   : Container(), ///////PF/ESI
-              inputFieldContainer(reuseTextField("IFSC Number", ifscError)),
+              inputFieldContainer(
+                  reuseTextField("IFSC Number", ifscError, "ifsc")),
               ifscError
                   ? errorMsg("Please enter IFSC number")
                   : Container(), ///////PF/ESI
-              inputFieldContainer(reuseTextField("MICR Number", micrError)),
+              inputFieldContainer(
+                  reuseTextField("MICR Number", micrError, "micr")),
               micrError ? errorMsg("Please enter MICR number") : Container(),
 
               Padding(
@@ -222,7 +236,7 @@ class OtherFormState extends State<OtherForm> {
               ),
 
               dynamicDropDown(certificateError, selectCertificate,
-                  certifiedList, "Select Certified By"),
+                  certifiedList, "Select Certified By", "certified"),
               certificateError
                   ? errorMsg("Please select Certificated BY")
                   : Container(),
@@ -308,6 +322,7 @@ class OtherFormState extends State<OtherForm> {
               setState(() {
                 isMagnera = valuePress;
               });
+              _otherFormModel.isMagnera = valuePress;
             },
           ),
         ),
@@ -341,7 +356,7 @@ class OtherFormState extends State<OtherForm> {
     });
   }
 
-  Widget IsMinerSwitchButton() {
+  Widget IsPhysicalMinerSwitchButton() {
     return Row(
       //mainAxisAlignment: MainAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -369,6 +384,7 @@ class OtherFormState extends State<OtherForm> {
               setState(() {
                 isMagnera = valuePress;
               });
+              _otherFormModel.isPhysicalChallenge = valuePress;
             },
           ),
         ),
@@ -404,6 +420,7 @@ class OtherFormState extends State<OtherForm> {
               setState(() {
                 isMigrant = valuePress;
               });
+              _otherFormModel.isMigrantWorkker = valuePress;
             },
           ),
         ),
@@ -459,7 +476,7 @@ class OtherFormState extends State<OtherForm> {
     );
   }
 
-  TextFormField reuseTextField(String hint, bool error) {
+  TextFormField reuseTextField(String hint, bool error, String comeFrom) {
     return TextFormField(
       //controller: _firstName,
       cursorColor: AppData.kPrimaryColor,
@@ -485,6 +502,29 @@ class OtherFormState extends State<OtherForm> {
       },
       onSaved: (value) {
         // userPersonalForm.firstName = value;
+        switch (comeFrom) {
+          case "bpl":
+            _otherFormModel.bplAntdya = value;
+            break;
+          case "bpl":
+            _otherFormModel.bplAntdya = value;
+            break;
+          case "esi":
+            _otherFormModel.esiPf = value;
+            break;
+          case "account":
+            _otherFormModel.accountNo = value;
+            break;
+          case "branch":
+            _otherFormModel.branch = value;
+            break;
+          case "ifsc":
+            _otherFormModel.ifsc = value;
+            break;
+          case "micr":
+            _otherFormModel.micr = value;
+            break;
+        }
       },
     );
   }
@@ -513,28 +553,32 @@ class OtherFormState extends State<OtherForm> {
   }
 
   Widget nextButton() {
-    return new InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => NomineePage(),
-        ),
-      ),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
-        child: new Container(
-          //width: 100.0,
-          height: 45.0,
-          decoration: new BoxDecoration(
-            color: AppData.kPrimaryColor,
-            //border: new Border.all(color: Colors.white, width: 2.0),
-            borderRadius: new BorderRadius.circular(17.0),
+    return Visibility(
+      visible: (widget.isConfirmPage)?false:true,
+      child: new InkWell(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            //builder: (BuildContext context) => NomineePage(),
+            builder: (BuildContext context) => BenificiaryPage(),
           ),
-          child: new Center(
-            child: new Text(
-              'Next Step',
-              style: new TextStyle(fontSize: 18.0, color: Colors.white),
+        ),
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0, right: 8.0),
+          child: new Container(
+            //width: 100.0,
+            height: 45.0,
+            decoration: new BoxDecoration(
+              color: AppData.kPrimaryColor,
+              //border: new Border.all(color: Colors.white, width: 2.0),
+              borderRadius: new BorderRadius.circular(17.0),
+            ),
+            child: new Center(
+              child: new Text(
+                'Next Step',
+                style: new TextStyle(fontSize: 18.0, color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -557,8 +601,8 @@ class OtherFormState extends State<OtherForm> {
     }
   }
 
-  Widget dynamicDropDown(
-      bool error, String selectData, List<String> dataList, String hintText) {
+  Widget dynamicDropDown(bool error, String selectData, List<String> dataList,
+      String hintText, String comeFrom) {
     return Padding(
         //padding: const EdgeInsets.all(8.0),
         padding:
@@ -581,6 +625,23 @@ class OtherFormState extends State<OtherForm> {
             onChanged: (value) {
               setState(() => selectData = value);
               //userPersonalForm.maritalStatus = selectState;
+              switch (comeFrom) {
+                case "job":
+                  _otherFormModel.natureOfJob = value;
+                  break;
+                case "qual":
+                  _otherFormModel.qualification = value;
+                  break;
+                case "cast":
+                  _otherFormModel.cast = value;
+                  break;
+                case "bank":
+                  _otherFormModel.bank = value;
+                  break;
+                case "certified":
+                  _otherFormModel.cerifiedBy = value;
+                  break;
+              }
             },
             validator: (value) {
               if (value == null) {
@@ -600,54 +661,6 @@ class OtherFormState extends State<OtherForm> {
             }).toList(),
           ),
         ));
-  }
-
-  Widget dynamicVisibleDropDown(
-      bool error, String selectData, List<String> dataList, String hintText) {
-    return Visibility(
-      visible: (visiblePresent) ? false : true,
-      child: Padding(
-          //padding: const EdgeInsets.all(8.0),
-          padding: const EdgeInsets.only(
-              top: 8.0, left: 8.0, right: 8.0, bottom: 0.0),
-          child: Container(
-            height: 45,
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            decoration: BoxDecoration(
-              color: AppData.kPrimaryLightColor,
-              borderRadius: BorderRadius.circular(29),
-            ),
-            child: DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-              ),
-              value: selectData != '' ? selectData : null,
-              hint: Text(hintText),
-              onChanged: (value) {
-                setState(() => selectData = value);
-                //userPersonalForm.maritalStatus = selectState;
-              },
-              validator: (value) {
-                if (value == null) {
-                  // maritalError = true;
-                  selectData == '' ? error = true : error = false;
-                  return null;
-                } else {
-                  error = false;
-                  return null;
-                }
-              },
-              items: dataList.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          )),
-    );
   }
 }
 //

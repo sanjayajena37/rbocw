@@ -6,7 +6,9 @@ import 'package:rbocw/providers/app_data.dart';
 
 class WorkExperienceForm extends StatefulWidget {
   final Function(int, bool) updateTab;
-  WorkExperienceForm({Key key, @required this.updateTab}) : super(key: key);
+  bool isConfirmationPage;
+  bool isFromDash;
+  WorkExperienceForm({Key key, @required this.updateTab,this.isConfirmationPage,this.isFromDash}) : super(key: key);
 
   @override
   WorkExperienceFormState createState() => WorkExperienceFormState();
