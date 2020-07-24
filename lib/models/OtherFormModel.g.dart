@@ -37,7 +37,6 @@ AddressShareModel _$AddressModelFromJson(Map<String, dynamic> json) {
     ..presentBlock = json['presentBlock'] as String
     ..presentPanchayat = json['presentPanchayat'] as String
     ..presentVillageDrop = json['presentVillageDrop'] as String
-    
     ..permanentVillage = json['permanentVillage'] as String
     ..permanentStreet = json['permanentStreet'] as String
     ..permanentPostOfc = json['permanentPostOfc'] as String
@@ -51,8 +50,7 @@ AddressShareModel _$AddressModelFromJson(Map<String, dynamic> json) {
     ..isPermanentPresentSame = json['isPermanentPresentSame'] as bool;
 }
 
-Map<String, dynamic> _$AddressFormModelToJson(
-    AddressShareModel instance) =>
+Map<String, dynamic> _$AddressFormModelToJson(AddressShareModel instance) =>
     <String, dynamic>{
       'presentVillage': instance.presentVillage,
       'presentStreet': instance.presentStreet,
@@ -62,7 +60,6 @@ Map<String, dynamic> _$AddressFormModelToJson(
       'presentBlock': instance.presentBlock,
       'presentPanchayat': instance.presentPanchayat,
       'presentVillageDrop': instance.presentVillageDrop,
-      
       'permanentVillage': instance.permanentVillage,
       'permanentStreet': instance.permanentStreet,
       'permanentPostOfc': instance.permanentPostOfc,

@@ -6,9 +6,8 @@ part 'OtherFormModel.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class AddressShareModel {
-  
   String natureOfJob;
-  bool isMagnera=false;
+  bool isMagnera = false;
   String qualification;
   String bplAntdya;
   String presentState;
@@ -25,16 +24,20 @@ class AddressShareModel {
   String permanentBlock;
   String permanentPanchayat;
   String permanentVillageDrop;
-  
-  bool isOutOfState=false;
-  bool isPermanentPresentSame=false;
-  
+
+  bool isOutOfState = false;
+  bool isPermanentPresentSame = false;
+
+  String presentVillage;
+
+  String presentPostOfc;
+
+  String presentStreet;
+
   AddressShareModel();
 
   factory AddressShareModel.fromJson(Map<String, dynamic> data) =>
       _$AddressModelFromJson(data);
 
   Map<String, dynamic> toJson() => _$AddressFormModelToJson(this);
-
-  
 }

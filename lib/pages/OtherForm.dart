@@ -14,7 +14,8 @@ class OtherForm extends StatefulWidget {
   final Function(int, bool) updateTab;
 
   bool isConfirmPage;
-  OtherForm({Key key, @required this.updateTab,this.isConfirmPage}) : super(key: key);
+  OtherForm({Key key, @required this.updateTab, this.isConfirmPage})
+      : super(key: key);
 
   @override
   OtherFormState createState() => OtherFormState();
@@ -133,8 +134,7 @@ class OtherFormState extends State<OtherForm> {
               bplError ? errorMsg("Please enter BPL/Antyodaya") : Container(),
 
               ///////PF/ESI
-              inputFieldContainer(
-                  reuseTextField("PF/ESI No If Any", pfError)),
+              inputFieldContainer(reuseTextField("PF/ESI No If Any", pfError)),
               pfError ? errorMsg("Please enter PF/ESI No If Any") : Container(),
 
               //////SC/ST
@@ -585,14 +585,14 @@ class OtherFormState extends State<OtherForm> {
               ),
             ),
             value: selectData != '' ? selectData : null,
-            disabledHint: Text(selectData != '' ? selectData : null),
+            // disabledHint: Text(selectData != '' ? selectData : null),
             hint: Text(hintText),
             onChanged: widget.isConfirmPage
                 ? null
-                :(value) {
-              setState(() => selectData = value);
-              //userPersonalForm.maritalStatus = selectState;
-            },
+                : (value) {
+                    setState(() => selectData = value);
+                    //userPersonalForm.maritalStatus = selectState;
+                  },
             validator: (value) {
               if (value == null) {
                 // maritalError = true;
@@ -612,7 +612,4 @@ class OtherFormState extends State<OtherForm> {
           ),
         ));
   }
-
-
 }
-

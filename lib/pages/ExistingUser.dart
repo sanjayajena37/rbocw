@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rbocw/pages/homePage.dart';
+import 'package:rbocw/pages/login.dart';
 import 'package:rbocw/providers/app_data.dart';
 import 'package:rbocw/scoped-model/main.dart';
 import 'package:rbocw/widgets/phone_number.dart';
 import 'package:rbocw/widgets/rounded_input_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'OtpView.dart';
 
 class ExistingUser extends StatefulWidget {
   final MainModel model;
@@ -21,6 +26,13 @@ class _ExistingUserState extends State<ExistingUser> {
   bool _isExistinguser = false;
   DateTime selectedDate = DateTime.now();
   TextEditingController _date = new TextEditingController();
+
+  @override
+  void initState() {
+    // Navigator.removeRoute(
+    //     context, MaterialPageRoute(builder: (context) => OtpView()));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +200,9 @@ class _ExistingUserState extends State<ExistingUser> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _gotoHomePage();
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.0)),
                 child: Text("OK", style: TextStyle(color: Colors.white70)),
@@ -199,6 +213,16 @@ class _ExistingUserState extends State<ExistingUser> {
         ],
       ),
     );
+  }
+
+  void _gotoHomePage() async {
+    // validate
+    // Navigator.pushNamed(context, '/home');
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('IS_LOGINED', true);
+
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
   }
 
   Widget confirmationContaint() {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rbocw/pages/login.dart';
 import 'package:rbocw/providers/app_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({Key key}) : super(key: key);
@@ -31,6 +33,13 @@ class _DashboardPageState extends State<DashboardPage> {
       }
     }
     return val;
+  }
+
+  _exitApp() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('IS_LOGINED', false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
   }
 
   @override
@@ -83,15 +92,14 @@ class _DashboardPageState extends State<DashboardPage> {
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                '176****590',
-                                style: TextStyle(
+                              Text('176****590',
+                                  style: TextStyle(
                                     fontFamily: 'Quicksand',
                                     fontSize: 15.0,
                                     color: Colors.white,
-                                )
-                                    //color: Colors.black.withOpacity(0.7)),
-                              )
+                                  )
+                                  //color: Colors.black.withOpacity(0.7)),
+                                  )
                             ],
                           ),
                           SizedBox(
@@ -99,8 +107,10 @@ class _DashboardPageState extends State<DashboardPage> {
                           Container(
                             alignment: Alignment.topRight,
                             child: IconButton(
-                              icon: Icon(Icons.settings),
-                              onPressed: () {},
+                              icon: Icon(Icons.exit_to_app),
+                              onPressed: () {
+                                _exitApp();
+                              },
                               color: Colors.white,
                               iconSize: 30.0,
                             ),

@@ -5,7 +5,6 @@ import 'package:rbocw/pages/OtpView.dart';
 import 'package:rbocw/providers/app_data.dart';
 import 'package:rbocw/scoped-model/main.dart';
 import 'package:rbocw/widgets/phone_number.dart';
-import 'package:rbocw/widgets/rounded_input_field.dart';
 
 class LoginScreen extends StatefulWidget {
   // MainModel _model = MainModel();
@@ -136,68 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 : Container()
           ],
         ));
-    // return Stack(
-    //   children: <Widget>[
-    //     Positioned(
-    //       top: 0,
-    //       left: 0,
-    //       child: Image.asset(
-    //         "assets/images/main_top.png",
-    //         width: size.width * 0.35,
-    //       ),
-    //     ),
-    //     Container(
-    //       child: ListView(
-    //         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-    //         children: <Widget>[
-    //           SizedBox(height: 80),
-    //           SvgPicture.asset(
-    //             "assets/icons/govt_logo.svg",
-    //             height: size.height * 0.18,
-    //           ),
-    //           SizedBox(height: 10),
-    //           SvgPicture.asset(
-    //             "assets/icons/bow-logo.svg",
-    //             height: size.height * 0.15,
-    //           ),
-    //           SizedBox(height: size.height * 0.05),
-    //           RoundedInputField(
-    //               hintText: "Please Enter Phone no.",
-    //               icon: Icons.phone,
-    //               textField: true,
-    //               textAction: true,
-    //               onChanged: (value) {},
-    //               onSubmitted: (value) {
-    //                 print(">>>>>>>>>>>>>>>." + value);
-    //                 _validateMobileNumber(value, context);
-    //               }),
-    //         ],
-    //       ),
-    //     ),
-    //     Positioned(
-    //       bottom: 0,
-    //       right: 0,
-    //       child: Image.asset(
-    //         "assets/images/login_bottom.png",
-    //         width: size.width * 0.4,
-    //       ),
-    //     ),
-    //     model.isLoginLoading
-    //         ? Stack(
-    //             children: [
-    //               new Opacity(
-    //                 opacity: 0.1,
-    //                 child: const ModalBarrier(
-    //                     dismissible: false, color: Colors.grey),
-    //               ),
-    //               new Center(
-    //                 child: new CircularProgressIndicator(),
-    //               ),
-    //             ],
-    //           )
-    //         : Container()
-    //   ],
-    // );
   }
 
   _validateMobileNumber(String mobileNo, context) async {
@@ -207,8 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
           await widget.model.getLoginResponse({"mobile": mobileNo});
 
       print(response);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) => OtpView()));
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (BuildContext context) => OtpView()));
+      Navigator.of(context).pushNamed('/otp');
     } else {
       return false;
     }
