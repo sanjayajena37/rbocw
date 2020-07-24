@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rbocw/pages/login.dart';
 import 'package:rbocw/scoped-model/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -27,6 +28,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool isLogin = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -101,16 +103,31 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void callResourceTimer(MainModel model) {
     //Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, '/home'));
-    Timer(
-      Duration(seconds: 3),
-      () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => LoginScreen(
-            model: model,
-          ),
-        ),
-      ),
-    );
+    // Timer(
+    //   Duration(seconds: 3),
+    //   () => Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (BuildContext context) => LoginScreen(
+    //         model: model,
+    //       ),
+    //     ),
+    //   ),
+    // );
+    Timer(Duration(seconds: 3), navigationPage);
+  }
+
+  void navigationPage() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    isLogin = (preferences.getBool('IS_LOGINED') ?? false);
+    print("isLogin>>>>>" + isLogin.toString());
+    if (isLogin) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    } else {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+    }
+    // Navigator.of(context).pushReplacementNamed('/HomeScreen');
   }
 }

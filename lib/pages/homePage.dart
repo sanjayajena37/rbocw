@@ -2,6 +2,7 @@ import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rbocw/pages/profile.dart';
 import 'package:rbocw/pages/setting.dart';
 import 'package:rbocw/scoped-model/main.dart';
@@ -23,7 +24,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final titles = ['Home', 'Benificiary', 'Profile', 'Edit'];
   //final colors = [Colors.purple, Colors.teal, Colors.green, Colors.cyan];
-  final colors = [AppData.kPrimaryColor, AppData.kPrimaryColor, AppData.kPrimaryColor, AppData.kPrimaryColor];
+  final colors = [
+    AppData.kPrimaryColor,
+    AppData.kPrimaryColor,
+    AppData.kPrimaryColor,
+    AppData.kPrimaryColor
+  ];
   final icons = [
     CupertinoIcons.home,
     CupertinoIcons.person_add,
@@ -61,54 +67,69 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  DateTime currentBackPressTime;
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "Do you want to exit");
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Bubbled Navigation Bar'),
-        // ),
-        body: NotificationListener<ScrollNotification>(
-          onNotification: (scrollNotification) {
-            checkUserDragging(scrollNotification);
-          },
-          child: PageView(
-            physics: new NeverScrollableScrollPhysics(),
-            controller: _pageController,
-            // children: colors.map((Color c) => Container(color: c)).toList(),
-            children: <Widget>[
-              DashboardPage(),
-              BenificiaryPage(),
-              ProfilePage(),
-              //SettingPage()
-              EditUserRegister()
-            ],
-            onPageChanged: (page) {},
+    return WillPopScope(
+        onWillPop: onWillPop,
+        child: Scaffold(
+          // appBar: AppBar(
+          //   title: Text('Bubbled Navigation Bar'),
+          // ),
+          body: NotificationListener<ScrollNotification>(
+            onNotification: (scrollNotification) {
+              checkUserDragging(scrollNotification);
+            },
+            child: PageView(
+              physics: new NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              // children: colors.map((Color c) => Container(color: c)).toList(),
+              children: <Widget>[
+                DashboardPage(),
+                BenificiaryPage(),
+                ProfilePage(),
+                //SettingPage()
+                EditUserRegister()
+              ],
+              onPageChanged: (page) {},
+            ),
           ),
-        ),
-        bottomNavigationBar: BubbledNavigationBar(
-          controller: _menuPositionController,
-          initialIndex: 0,
-          itemMargin: EdgeInsets.symmetric(horizontal: 8),
-          backgroundColor: Colors.white,
-          defaultBubbleColor: Colors.blue,
-          onTap: (index) {
-            _pageController.animateToPage(index,
-                curve: Curves.easeInOutQuad,
-                duration: Duration(milliseconds: 500));
-          },
-          items: titles.map((title) {
-            var index = titles.indexOf(title);
-            var color = colors[index];
-            return BubbledNavigationBarItem(
-              icon: getIcon(index, color),
-              activeIcon: getIcon(index, Colors.white),
-              bubbleColor: color,
-              title: Text(
-                title,
-                style: TextStyle(color: Colors.white, fontSize: 12),
-              ),
-            );
-          }).toList(),
+          bottomNavigationBar: BubbledNavigationBar(
+            controller: _menuPositionController,
+            initialIndex: 0,
+            itemMargin: EdgeInsets.symmetric(horizontal: 8),
+            backgroundColor: Colors.white,
+            defaultBubbleColor: Colors.blue,
+            onTap: (index) {
+              _pageController.animateToPage(index,
+                  curve: Curves.easeInOutQuad,
+                  duration: Duration(milliseconds: 500));
+            },
+            items: titles.map((title) {
+              var index = titles.indexOf(title);
+              var color = colors[index];
+              return BubbledNavigationBarItem(
+                icon: getIcon(index, color),
+                activeIcon: getIcon(index, Colors.white),
+                bubbleColor: color,
+                title: Text(
+                  title,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              );
+            }).toList(),
+          ),
         ));
   }
 

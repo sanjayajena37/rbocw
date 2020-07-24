@@ -421,8 +421,8 @@ class _DashboardPageState extends State<DashboardPage> {
               listItem('Renewal History', Color(getColorHexFromStr('#FB8662')),
                   Icons.sync),
               listItem('Benefits Applied List', Colors.blue, Icons.touch_app),
-              listItem('Benefits Approved List', Color(getColorHexFromStr('#ECB800')),
-                  Icons.verified_user),
+              listItem('Benefits Approved List',
+                  Color(getColorHexFromStr('#ECB800')), Icons.verified_user),
             ],
           )
         ],

@@ -250,12 +250,13 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
                         ),
                         onPressed: () {
                           // you can dall OTP verification API.
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => ExistingUser(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (BuildContext context) => ExistingUser(),
+                          //   ),
+                          // );
+                          Navigator.popAndPushNamed(context, '/existing');
                         }),
                   ),
                   _otpKeyboardInputButton(

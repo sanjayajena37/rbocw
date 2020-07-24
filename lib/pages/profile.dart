@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rbocw/widgets/profileHeader.dart';
 import 'package:rbocw/widgets/userInfo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/app_data.dart';
 
@@ -32,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
 //                      Colors.indigo.shade300,
 //                      Colors.indigo.shade500
 //                    ]),
-                  color: AppData.kPrimaryColor,
+                    color: AppData.kPrimaryColor,
                   ),
                 ),
                 _buildHeader(context)
@@ -56,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
               // ),
               const SizedBox(height: 10.0),
               UserInfo(),
-             // UserInfo(),
+              // UserInfo(),
             ],
           ),
         ));
@@ -65,12 +66,12 @@ class _ProfilePageState extends State<ProfilePage> {
   Container _buildHeader(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 50.0),
-      height: 200.0,
+      height: 210.0,
       child: Stack(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
-                top: 40.0, left: 40.0, right: 40.0, bottom: 10.0),
+            padding:
+                EdgeInsets.only(top: 40.0, left: 40.0, right: 40.0, bottom: .0),
             child: Material(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0)),
@@ -99,7 +100,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Text("From Cuttack"),
                   Container(
-                    height: 20.0,
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                      icon: Icon(Icons.exit_to_app),
+                      onPressed: () {
+                        _exitApp();
+                      },
+                      color: AppData.kPrimaryColor,
+                      iconSize: 25.0,
+                    ),
+                  ),
+                  Container(
+                      // height: 20.0,
 //                    child: Row(
 //                      mainAxisAlignment: MainAxisAlignment.center,
 //                      children: <Widget>[
@@ -141,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
 //                        ),
 //                      ],
 //                    ),
-                  )
+                      )
                 ],
               ),
             ),
@@ -163,5 +175,12 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
+  }
+
+  _exitApp() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('IS_LOGINED', false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
   }
 }

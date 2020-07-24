@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rbocw/pages/ExistingUser.dart';
+import 'package:rbocw/pages/OtpView.dart';
 import 'package:rbocw/pages/homePage.dart';
+import 'package:rbocw/pages/login.dart';
 import 'package:rbocw/pages/newUserRegister.dart';
 import 'package:rbocw/pages/register.dart';
 import 'package:rbocw/pages/splash.dart';
@@ -35,6 +38,12 @@ class _MyAppState extends State<MyApp> {
             ),
             //home: NewUserRegister(model: _model),
             home: SplashScreen(model: _model),
+            routes: {
+              '/login': (context) => LoginScreen(model: _model),
+              '/otp': (context) => OtpView(),
+              '/existing': (context) => ExistingUser(),
+              '/home': (context) => HomePage(model: _model),
+            },
             // home: RegisterPage(model: _model),
           );
         }));

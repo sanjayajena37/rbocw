@@ -207,8 +207,9 @@ class _LoginScreenState extends State<LoginScreen> {
           await widget.model.getLoginResponse({"mobile": mobileNo});
 
       print(response);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) => OtpView()));
+      Navigator.of(context).pushNamed('/otp');
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (BuildContext context) => OtpView()));
     } else {
       return false;
     }
