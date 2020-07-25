@@ -37,28 +37,30 @@ class AddressFormState extends State<AddressForm> {
   bool visiblePresent = false;
   bool outOfstate = false;
 
-  List<String> statesList = ["ODISHA", "MP", "UP"];
+  List<String> statesList = ["Odisha", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand"];
   bool stateError = false;
   String selectState = "";
   bool stateError1 = false;
   String selectState1 = "";
 
-  List<String> districtList = ["CTC", "BBSR", "PURI", "KHORDHA"];
+  List<String> districtList = ["Cuttack", "Khordha", "Kendrapara", "Puri", "Balasore"];
   bool districtError = false;
   String selectDistrict = "";
   bool districtError1 = false;
   String selectDistrict1 = "";
 
-  List<String> blockList = ["BLOCK 1", "BLOCK 2", "BLOCK 3", "BLOCK 4"];
+  List<String> blockList = ["Barabati-Cuttack", "Choudwar-Cuttack", "Niali", "Cuttack Sadar"];
   bool blockError = false;
   String selectBlock = "";
   bool blockError1 = false;
   String selectBlock1 = "";
 
   List<String> panchayatList = [
-    "Panchayat 1",
-    "Panchayat 2",
-    "Panchayat 3",
+    "Sankarpur",
+    "Nakhara",
+    "Kotasahi",
+    "Mahisalanda",
+    "Karanchi",
   ];
   bool panchayatError = false;
   String selectPanchayat = "";

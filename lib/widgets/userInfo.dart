@@ -50,12 +50,12 @@ class UserInfo extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Icons.fiber_smart_record),
-                            title: Text("Maritial Status"),
+                            title: Text("Marital status"),
                             subtitle: Text("Non-Married"),
                           ),
                           ListTile(
                             leading: Icon(Icons.person),
-                            title: Text("Father Name"),
+                            title: Text("Father's Name"),
                             subtitle: Text("S. Jena"),
                           ),
                           ListTile(
@@ -66,11 +66,11 @@ class UserInfo extends StatelessWidget {
                           ListTile(
                             leading: Icon(Icons.phone),
                             title: Text("Phone"),
-                            subtitle: Text("99--99876-56"),
+                            subtitle: Text("9912345678"),
                           ),
                           ListTile(
                             leading: Icon(Icons.keyboard_hide),
-                            title: Text("Adhar Number"),
+                            title: Text("Aadhaar Number"),
                             subtitle: Text("1234-5678-9012"),
                           ),
                         ],

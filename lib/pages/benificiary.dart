@@ -157,7 +157,7 @@ class _BenificiaryPageState extends State<BenificiaryPage> {
           ),
           DataColumn(
             label: Text(
-              "Sex",
+              "Gender",
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
@@ -168,7 +168,7 @@ class _BenificiaryPageState extends State<BenificiaryPage> {
                 // names.sort((a, b) => a.lastName.compareTo(b.lastName));
               });
             },
-            tooltip: "Sex",
+            tooltip: "Gender",
           ),
           DataColumn(
             label: Text(

@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Volumes/SanjayaDisk/Flutter/flutter"
-export "FLUTTER_APPLICATION_PATH=/Volumes/SanjayaDisk/Flutter Project/CodeBack3"
+export "FLUTTER_APPLICATION_PATH=/Volumes/SanjayaDisk/Flutter Project/CodesBack"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "SYMROOT=${SOURCE_ROOT}/../build/ios"

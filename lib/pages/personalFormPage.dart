@@ -378,7 +378,7 @@ class PersonalFormState extends State<PersonalForm> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: "Last name.",
+        hintText: "Last name",
         hintStyle: TextStyle(color: Colors.grey),
       ),
       validator: (value) {
@@ -415,7 +415,7 @@ class PersonalFormState extends State<PersonalForm> {
             ),
             value: selectedSex != '' ? selectedSex : null,
             // disabledHint: Text(selectedSex != '' ? selectedSex : null),
-            hint: Text("Select"),
+            hint: Text("Select Gender"),
             onChanged: widget.isConfirmPage
                 ? null
                 : (salutation) {
@@ -545,7 +545,7 @@ class PersonalFormState extends State<PersonalForm> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: "Father's/Husband name",
+        hintText: "Father's/Husband's name",
         hintStyle: TextStyle(color: Colors.grey),
       ),
       validator: (value) {
@@ -646,7 +646,7 @@ class PersonalFormState extends State<PersonalForm> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: "Aadhar number.",
+        hintText: "Aadhaar number",
         hintStyle: TextStyle(color: Colors.grey),
       ),
       validator: (value) {
