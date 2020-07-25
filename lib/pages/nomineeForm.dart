@@ -6,6 +6,7 @@ import 'package:rbocw/models/memberModel.dart';
 import 'package:rbocw/models/nomineeModel.dart';
 import 'package:rbocw/providers/SharedPref.dart';
 import 'package:rbocw/providers/app_data.dart';
+import 'package:rbocw/widgets/text_field_container.dart';
 
 typedef OnDelete();
 
@@ -93,11 +94,13 @@ class _NomineeFormState extends State<NomineeForm> {
             ),
           ),
           nameDropDown(),
-          inputFieldContainer(address()),
+          TextFieldContainer(
+            child: address(),
+          ),
           relationShipDropDown(),
           genderDropDown(),
-          inputFieldContainer(age()),
-          inputFieldContainer(share()),
+          TextFieldContainer(child: age()),
+          TextFieldContainer(child: share()),
           //relationShipDropDown(),
         ],
       ),
@@ -145,22 +148,6 @@ class _NomineeFormState extends State<NomineeForm> {
 //    );
 //  }
 
-
-  Widget inputFieldContainer(child) {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 0.0),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          color: AppData.kPrimaryLightColor,
-          borderRadius: BorderRadius.circular(29),
-        ),
-        child: child,
-      ),
-    );
-  }
-
   TextFormField age() {
     return TextFormField(
       controller: _age,
@@ -182,7 +169,9 @@ class _NomineeFormState extends State<NomineeForm> {
         widget.member.age = value;
       },
     );
-  }TextFormField share() {
+  }
+
+  TextFormField share() {
     return TextFormField(
       controller: _share,
       cursorColor: AppData.kPrimaryColor,

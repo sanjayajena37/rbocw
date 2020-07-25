@@ -41,7 +41,8 @@ class _MyAppState extends State<MyApp> {
             routes: {
               '/login': (context) => LoginScreen(model: _model),
               '/otp': (context) => OtpView(),
-              '/existing': (context) => ExistingUser(),
+              '/existing': (context) => ExistingUser(model: _model),
+              '/register': (context) => NewUserRegister(model: _model),
               '/home': (context) => HomePage(model: _model),
             },
             // home: RegisterPage(model: _model),

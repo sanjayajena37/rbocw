@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rbocw/pages/homePage.dart';
 import 'package:rbocw/pages/login.dart';
+import 'package:rbocw/pages/newUserRegister.dart';
 import 'package:rbocw/providers/app_data.dart';
 import 'package:rbocw/scoped-model/main.dart';
 import 'package:rbocw/widgets/phone_number.dart';
 import 'package:rbocw/widgets/rounded_input_field.dart';
+import 'package:rbocw/widgets/text_field_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'OtpView.dart';
@@ -26,6 +28,7 @@ class _ExistingUserState extends State<ExistingUser> {
   bool _isExistinguser = false;
   DateTime selectedDate = DateTime.now();
   TextEditingController _date = new TextEditingController();
+  TextEditingController _regNo = new TextEditingController();
 
   @override
   void initState() {
@@ -64,18 +67,36 @@ class _ExistingUserState extends State<ExistingUser> {
           image: DecorationImage(
               image: AssetImage("assets/images/bg.jpg"), fit: BoxFit.cover),
           color: Colors.white),
-      child: ListView(
-        shrinkWrap: true,
+      child: Stack(
         children: <Widget>[
-          SizedBox(
-            height: 90.0,
+          ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              SizedBox(
+                height: 90.0,
+              ),
+              SvgPicture.asset(
+                "assets/icons/govt_logo.svg",
+                height: size.height * 0.18,
+              ),
+              SizedBox(height: 10),
+              !_isExistinguser ? confirmationContaint() : registrationForm()
+            ],
           ),
-          SvgPicture.asset(
-            "assets/icons/govt_logo.svg",
-            height: size.height * 0.18,
-          ),
-          SizedBox(height: 10),
-          !_isExistinguser ? confirmationContaint() : registrationForm()
+          widget.model.isRegisterLoading
+              ? Stack(
+                  children: [
+                    new Opacity(
+                      opacity: 0.1,
+                      child: const ModalBarrier(
+                          dismissible: false, color: Colors.grey),
+                    ),
+                    new Center(
+                      child: new CircularProgressIndicator(),
+                    ),
+                  ],
+                )
+              : Container()
         ],
       ),
     );
@@ -110,12 +131,8 @@ class _ExistingUserState extends State<ExistingUser> {
                   SizedBox(
                     height: 50.0,
                   ),
-                  PhoneNumberField(
-                    hintText: "Please Enter Phone no.",
-                    onSubmitted: (value) {
-                      print(">>>>>>>>>>>>>>>." + value);
-                    },
-                    textAction: true,
+                  TextFieldContainer(
+                    child: registrationNo(),
                   ),
                   // RoundedInputField(
                   //     hintText: "Please Enter Registration no.",
@@ -215,14 +232,47 @@ class _ExistingUserState extends State<ExistingUser> {
     );
   }
 
+  TextFormField registrationNo() {
+    return TextFormField(
+      controller: _regNo,
+      cursorColor: AppData.kPrimaryColor,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: "Register No.",
+        hintStyle: TextStyle(color: Colors.grey),
+        // contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      ),
+      validator: (value) {},
+      onSaved: (value) {},
+    );
+  }
+
   void _gotoHomePage() async {
     // validate
     // Navigator.pushNamed(context, '/home');
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool('IS_LOGINED', true);
-    print("isLogin>>>>>" + preferences.getBool('IS_LOGINED').toString());
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    if (_date.text != '' && _regNo.text != '') {
+      Map<String, dynamic> response = await widget.model
+          .getRegisterResponse({"dob": _date.text, "reg_no": _regNo.text});
+
+      if (response.isNotEmpty) {
+        print(response);
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setBool('IS_LOGINED', true);
+        print("isLogin>>>>>" + preferences.getBool('IS_LOGINED').toString());
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+      }
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (BuildContext context) => OtpView()));
+    } else {
+      if (_regNo.text == '') {
+        AppData.showToastMessage("Enter Reg. No", Colors.red);
+      } else {
+        AppData.showToastMessage("Enter DOB", Colors.red);
+      }
+    }
   }
 
   Widget confirmationContaint() {
@@ -275,6 +325,14 @@ class _ExistingUserState extends State<ExistingUser> {
                   InkWell(
                     onTap: () {
                       print("click");
+                      // Navigator.popAndPushNamed(context, '/register');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NewUserRegister(
+                                  model: widget.model,
+                                )),
+                      );
                     },
                     child: Container(
                       width: 120,

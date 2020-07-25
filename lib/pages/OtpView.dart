@@ -249,7 +249,7 @@ class _OtpViewState extends State<OtpView> with SingleTickerProviderStateMixin {
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          // you can dall OTP verification API.
+                          // you can call OTP verification API.
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class AppData {
   static String appId = "com.";
-  static String appName = "Rbocw";
+  static String appName = "Construction Workers";
   static String baseUrl = 'http://sug.sugamatourists.com';
 
   static int bgColor = 00000000;

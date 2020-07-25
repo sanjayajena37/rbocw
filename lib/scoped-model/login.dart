@@ -13,24 +13,19 @@ class LoginModel extends Model {
     notifyListeners();
     print(loginBody);
     String loginApi = ApiFactory.loginApi;
-    await http
-        .get('http://api.open-notify.org/astros')
-        .then((http.Response response) {
-      _loginResponse = json.decode(response.body);
-      _isLoginLoading = false;
-      notifyListeners();
-    });
-    // await http
-    //     .post(loginApi,
-    //         headers: {'platform': 'Android'}, body: json.encode(loginBody))
+    // await http.get('http://api.open-notify.org/astros')
     //     .then((http.Response response) {
     //   _loginResponse = json.decode(response.body);
     //   _isLoginLoading = false;
-    //   print(loginApi);
-    //   print(json.encode(loginBody));
-    //   print("Login Response: " + _loginResponse.toString());
     //   notifyListeners();
     // });
+    // return _loginResponse;
+    await Future.delayed(const Duration(seconds: 2), () {
+      print("callllllllllllllllllllllllll");
+      _isLoginLoading = false;
+      notifyListeners();
+      _loginResponse = {"message": "Login Sucess"};
+    });
     return _loginResponse;
   }
 
